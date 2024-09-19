@@ -1,4 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
+import LargeButton from "../components/LargeButton";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,18 +14,13 @@ export default function Index() {
       <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 drop-shadow-lg mb-8">
         Sobremesa
       </h1>
-      <div className="flex flex-row gap-4">
-        <a
-          href="/signup"
-          className="bg-white text-gray-800 border border-gray-300 rounded-lg px-6 py-3 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 transition"
-        >
-          Sign Up
-        </a>
-        <a
-          href="/login"
-          className="bg-white text-gray-800 border border-gray-300 rounded-lg px-6 py-3 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 transition"
-        >
-          Log In
+      <div className="flex flex-col gap-4 items-center">
+        <div className="flex flex-row gap-4">
+          <LargeButton href="/login" label="Log In" />
+          <LargeButton href="/signup" label="Sign Up" />
+        </div>
+        <a href="/player" className="text-sm text-blue-500 hover:text-gray-100 ">
+          No Thanks (Use as guest)
         </a>
       </div>
     </div>
