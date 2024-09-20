@@ -19,7 +19,7 @@ export default function Index() {
           <LargeButton href="/login" label="Log In" />
           <LargeButton href="/signup" label="Sign Up" />
         </div>
-        <a href="/player" className="text-sm text-blue-500 hover:text-gray-100 ">
+        <a href="/guest" className="text-sm text-blue-500 hover:text-gray-100 ">
           No Thanks (Use as guest)
         </a>
       </div>
