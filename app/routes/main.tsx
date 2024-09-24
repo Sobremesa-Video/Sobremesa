@@ -1,5 +1,5 @@
 import { useState } from 'react';
-
+import LargeButton from "../components/LargeButton";
 // Sample list of videos from the 'media' folder (this would normally be dynamic)
 const videos = [
   'sample.mp4'
