@@ -1,9 +1,16 @@
 import { useState } from 'react';
+import type { MetaFunction } from "@remix-run/node";
 
 // Sample list of videos from the 'media' folder (this would normally be dynamic)
 const videos = [
   'sample.mp4'
 ];
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Sobremesa" },
+  ];
+};
 
 export default function MainPage() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
