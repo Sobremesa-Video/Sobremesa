@@ -26,7 +26,6 @@ export default function Index() {
             label="Log In"
           />
         </div>
-
         {/* Button 2: Sign Up */}
         <div>
           <LargeButton
