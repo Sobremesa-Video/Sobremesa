@@ -10,7 +10,7 @@ interface LargeButtonProps {
 
 const LargeButton: React.FC<LargeButtonProps> = ({ href, label }) => {
   return (
-    <Link to={href} className="bg-white text-gray-800 border border-gray-300 rounded-lg px-6 py-3 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:text-white dark:border-gray-700 dark:hover:bg-gray-700 transition">
+    <Link to={href} className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-xl shadow-lg border border-gray-300 hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-600 transition-transform duration-300 transform hover:scale-105">
       {label}
     </Link>
   );
