@@ -1,3 +1,11 @@
+import type { MetaFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Sobremesa Guest" },
+  ];
+};
+
 export default function GuestMain() {
     return (
       <div className="flex flex-col justify-center items-center min-h-screen bg-white dark:bg-gray-950">
