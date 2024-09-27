@@ -7,7 +7,7 @@ A new way to movie night
 - A custom HTML video player :x:
 - Built in chat :x:
 - Server Hosting :x:
--Jellyfin Integration :x:
+- Jellyfin Integration :x:
 
 ## Development
 
