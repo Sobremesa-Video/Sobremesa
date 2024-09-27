@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"github.com/goombaio/namegenerator"
 	"github.com/gorilla/websocket"
 	"log"
@@ -17,6 +18,9 @@ var (
 var upgrader = websocket.Upgrader{
 	ReadBufferSize:  1024,
 	WriteBufferSize: 1024,
+	CheckOrigin: func(r *http.Request) bool {
+		return true
+	},
 }
 
 const (
@@ -58,15 +62,20 @@ func main() {
 		broadcast:   make(chan []byte),
 	}
 
-	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
-		serveWebSocket(w, r, &hub)
-	})
-	err := http.ListenAndServe("localhost:8080", nil)
+	go func() {
+		http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
+			serveWebSocket(w, r, &hub)
+		})
 
-	if err != nil {
-		log.Fatal("ListenAndServe: ", err)
-	}
+		err := http.ListenAndServe("localhost:8080", nil)
 
+		print("serving on localhost...")
+		if err != nil {
+			log.Fatal("ListenAndServe: ", err)
+		}
+	}()
+
+	hub.routine()
 }
 
 type Connection struct {
@@ -95,7 +104,7 @@ func (connection *Connection) readRoutine() {
 			break
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
-		connection.hub.broadcast <- message
+		connection.hub.broadcast <- connection.formatMessage(message)
 	}
 }
 
@@ -154,6 +163,7 @@ func (hub *ConnectionHub) routine() {
 		select {
 		case conn := <-hub.newConn:
 			hub.connections[conn.name] = conn
+			conn.out <- conn.marshalData(NAME_DATA)
 		case conn := <-hub.destroyConn:
 			if _, ok := hub.connections[conn.name]; ok {
 				delete(hub.connections, conn.name)
@@ -188,4 +198,26 @@ func (hub *ConnectionHub) generateName() string {
 func (hub *ConnectionHub) doesNameExist(name string) bool {
 	_, ok := hub.connections[name]
 	return ok
+}
+
+func (connection *Connection) formatMessage(message []byte) []byte {
+	return append([]byte(connection.name+": "), message...)
+}
+
+type DataType string
+
+const (
+	NAME_DATA DataType = "NAME"
+)
+
+type SysData struct {
+	DataType DataType `json:"dataType"`
+	Data     any      `json:"data"`
+}
+
+// this is so unbelievably insecure. TODO once we've actually got accounts, revamp or eliminate this.
+func (connection *Connection) marshalData(dataType DataType) []byte {
+
+	data, _ := json.Marshal(SysData{DataType: NAME_DATA, Data: connection.name})
+	return data
 }
