@@ -1,7 +1,8 @@
 // app/components/LargeButton.tsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from '@remix-run/react';
+import '../components/LargeButton.css';
 
 interface LargeButtonProps {
   href: string;
@@ -9,8 +10,19 @@ interface LargeButtonProps {
 }
 
 const LargeButton: React.FC<LargeButtonProps> = ({ href, label }) => {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const handleMouseDown = () => {
+    setIsClicked(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsClicked(false);
+  };
+
   return (
-    <Link to={href} className="px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-xl shadow-lg border border-gray-300 hover:bg-gradient-to-r hover:from-blue-400 hover:to-purple-600 transition-transform duration-300 transform hover:scale-105">
+    <Link to={href} className={`large-button ${isClicked ? 'clicked' : ''}`} 
+    onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseLeave={handleMouseUp}>
       {label}
     </Link>
   );

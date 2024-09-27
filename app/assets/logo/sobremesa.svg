@@ -1,0 +1,21 @@
+<svg width="514" height="554" viewBox="0 0 514 554" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_d_6_20)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M233.495 1.00606C229.908 3.07713 228.679 7.66406 230.75 11.2513L234.503 17.7518C247.078 28.261 255.96 43.0403 258.922 59.8606C260.424 61.7156 262.695 62.7047 264.995 62.63C267.672 62.7169 270.308 61.3639 271.74 58.8826L299.24 11.2513C301.311 7.66406 300.082 3.07713 296.495 1.00606C292.908 -1.06501 288.321 0.164059 286.25 3.75125L264.995 40.5657L243.74 3.75125C241.669 0.164059 237.082 -1.06501 233.495 1.00606ZM230.711 129.718C248.461 116.812 260 95.8815 260 72.2561C260 71.9222 259.998 71.5888 259.993 71.2561H404C437.137 71.2561 464 98.119 464 131.256V311.256C464 344.393 437.137 371.256 404 371.256H124C90.8629 371.256 64 344.393 64 311.256V250.228C92.881 249.43 117.452 231.384 127.782 206.022C137.693 211.279 148.999 214.256 161 214.256C200.212 214.256 232 182.468 232 143.256C232 138.627 231.557 134.101 230.711 129.718ZM14 404.256C14 395.972 20.7157 389.256 29 389.256H79H449H499C507.284 389.256 514 395.972 514 404.256C514 412.54 507.284 419.256 499 419.256H464V524.256C464 532.54 457.284 539.256 449 539.256C440.716 539.256 434 532.54 434 524.256V419.256H94V524.256C94 532.54 87.2843 539.256 79 539.256C70.7157 539.256 64 532.54 64 524.256V419.256H29C20.7157 419.256 14 412.54 14 404.256Z" fill="url(#paint0_linear_6_20)"/>
+</g>
+<defs>
+<filter id="filter0_d_6_20" x="0" y="0" width="514" height="553.256" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dx="-10" dy="10"/>
+<feGaussianBlur stdDeviation="2"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_6_20"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_6_20" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_6_20" x1="264" y1="0" x2="264" y2="539.256" gradientUnits="userSpaceOnUse">
+<stop stop-color="#3B82F6"/>
+<stop offset="1" stop-color="#9333EA"/>
+</linearGradient>
+</defs>
+</svg>
