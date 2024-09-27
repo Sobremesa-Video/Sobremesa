@@ -112,9 +112,6 @@ import type { MetaFunction } from "@remix-run/node";
 // }
 import { useState, useEffect } from 'react';
 
-/// Websocket stuff
-let socket;
-///
 
 const videos = ['sample.mp4'];
 
@@ -124,20 +121,31 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-function constructSocket() {
-  console.log("constructing socket...")
-  socket = new WebSocket("ws://localhost:8080/ws");
-
-  socket.addEventListener("message", (event) => {
-    console.log("Message from server ", event.data);
-  });
-}
 
 export default function MainPage() {
+  const [socket, setSocket] = useState<WebSocket | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [chatInput, setChatInput] = useState<string>(''); // Input field for chat
   const [messages, setMessages] = useState<string[]>([]); // Messages sent in the chat
   const [darkMode, setDarkMode] = useState<boolean>(false); // Dark mode state
+
+
+  function constructSocket() {
+    const newSocket = new WebSocket("ws://localhost:8080/ws");
+
+    newSocket.addEventListener("message", (event) => {
+      try {
+        const data = JSON.parse(event.data);
+        if (data.dataType == "NAME") {
+          console.log("Username = " + data.data);
+        }
+      } catch (error) {
+        handleExternalMessage(event.data)
+      }
+    });
+
+    setSocket(newSocket)
+  }
 
   // Handle theme toggle
   const toggleDarkMode = () => {
@@ -161,12 +169,23 @@ export default function MainPage() {
     constructSocket();
   };
 
+
   const handleSendMessage = () => {
+    // Check if the WebSocket is initialized and open before trying to send
     if (chatInput.trim() !== '') {
-      setMessages([...messages, chatInput]);
-      setChatInput(''); // Clear input after sending
+      if (socket == null) {
+        // TODO if a frontend person could put a popup like "unable to connect to chat" here that would be fantastic
+      } else {
+        socket.send(chatInput); // Send the message
+        setChatInput(''); // Clear the input field after sending
+      }
     }
   };
+
+  const handleExternalMessage = (new_val:string) => {
+    setMessages((prevMessages) => [...prevMessages, new_val]);
+  }
+
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
