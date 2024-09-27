@@ -1,5 +1,12 @@
 import { redirect } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import type { ActionFunction } from "@remix-run/node";
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Sobremesa" },
+  ];
+};
 
 export let action: ActionFunction = async ({ request }) => {
   // Perform signup logic here, e.g., create a user in your database

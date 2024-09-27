@@ -1,5 +1,13 @@
 import { redirect } from "@remix-run/node";
+import type { MetaFunction } from "@remix-run/node";
 import type { ActionFunction } from "@remix-run/node";
+
+
+export const meta: MetaFunction = () => {
+  return [
+    { title: "Sobremesa" },
+  ];
+};
 
 export let action: ActionFunction = async ({ request }) => {
   // Perform login logic here, e.g., authenticate the user
