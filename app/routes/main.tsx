@@ -125,7 +125,6 @@ export const meta: MetaFunction = () => {
 };
 
 function constructSocket() {
-  console.log("constructing socket...")
   socket = new WebSocket("ws://localhost:8080/ws");
 
   socket.addEventListener("message", (event) => {
