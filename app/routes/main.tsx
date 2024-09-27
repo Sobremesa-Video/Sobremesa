@@ -112,6 +112,10 @@ import type { MetaFunction } from "@remix-run/node";
 // }
 import { useState, useEffect } from 'react';
 
+/// Websocket stuff
+let socket;
+///
+
 const videos = ['sample.mp4'];
 
 export const meta: MetaFunction = () => {
@@ -119,6 +123,15 @@ export const meta: MetaFunction = () => {
     { title: "Sobremesa" },
   ];
 };
+
+function constructSocket() {
+  console.log("constructing socket...")
+  socket = new WebSocket("ws://localhost:8080/ws");
+
+  socket.addEventListener("message", (event) => {
+    console.log("Message from server ", event.data);
+  });
+}
 
 export default function MainPage() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
@@ -145,6 +158,7 @@ export default function MainPage() {
 
   const handleVideoClick = (video: string) => {
     setSelectedVideo(`/media/${video}`);
+    constructSocket();
   };
 
   const handleSendMessage = () => {
