@@ -21,13 +21,15 @@ if %exec% == true (
 if %downloading% == true (
     echo Downloading go dependency files...
     go get
+    go install
 )
 
 echo Running server...
 
+CD backend
 if %exec% == true (
-    backend\watchparty_windows
+    ./watchparty_windows.exe
 ) ELSE (
-    go run backend\main.go
+    go run main.go
 )
 

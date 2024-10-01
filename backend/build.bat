@@ -1,16 +1,17 @@
 @echo off
 setlocal
-GOOS=linux
-GOARCH=amd64
-go build -o watchparty_linuxamd64 # Modern linux
+CD backend
 
-GOOS=windows
-go build -o watchparty_windows    # Modern windows
+set GOOS=linux
+set GOARCH=amd64
+go build -o watchparty_linuxamd64   
 
-GOOS=darwin
-go build -o watchparty_mac        # Intel-Processor Macs
+set GOOS=windows
+go build -o watchparty_windows.exe    
 
-GOARCH=arm64
-go build -o watchparty_macARM     # Silicon-Processor Macs
+set GOOS=darwin
+go build -o watchparty_mac            
 
+set GOARCH=arm64
+go build -o watchparty_macARM        
 endlocal
