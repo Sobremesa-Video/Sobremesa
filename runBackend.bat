@@ -26,7 +26,7 @@ if %downloading% == true (
 echo Running server...
 
 if %exec% == true (
-    backend\watchparty
+    backend\watchparty_windows
 ) ELSE (
     go run backend\main.go
 )

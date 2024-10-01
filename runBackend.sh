@@ -37,7 +37,20 @@ fi
 echo "Running server..."
 
 if $exec
-  then ./watchparty || echo "Executable unable to be ran."
+  then
+    executable=""
+    osName="$(uname)"
+    processorType="$(uname -m)"
+    if [ "$osName" == "Darwin" ]
+      then
+        if [ "$processorType" == "arm64" ]
+          then executable="watchparty_macARM"
+        else executable="watchparty_mac"
+        fi
+      else executable="watchparty_linuxamd64"
+    fi
+
+    ./$executable
 else
   go run main.go
 fi
