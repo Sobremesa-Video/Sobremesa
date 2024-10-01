@@ -30,7 +30,7 @@ cd backend || (echo "unable to access backend folder"; exit 1)
 
 if $downloading
   then
-    echo "Downloading go dependencies files...";
+    echo "Downloading go dependency files...";
     go get
 fi
 

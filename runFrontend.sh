@@ -7,7 +7,7 @@ npmVer="$(npm -v)}"
 
 if [ "$npmVer" == "" ]
   then
-    echo "Please ensure npm is downloaded!"
+    echo "Please ensure npm is installed!"
     exit 1
 fi
 
