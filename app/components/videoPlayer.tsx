@@ -8,11 +8,15 @@ interface VideoPlayerProps {
 
 export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null); // Reference to the container
   const progressBarRef = useRef<HTMLInputElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [volume, setVolume] = useState(5); // Volume state (default is 5)
+  const [isMuted, setIsMuted] = useState(false); // Track if the volume is muted
+  const [showVolumeBar, setShowVolumeBar] = useState(false); // Show volume bar on hover
 
   // Play/Pause function
   const togglePlayPause = () => {
@@ -23,6 +27,24 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
+    }
+  };
+
+  // Handle Mute/Unmute
+  const toggleMute = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = !isMuted;
+      setIsMuted(!isMuted);
+    }
+  };
+
+  // Handle Volume Change
+  const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (videoRef.current) {
+      const newVolume = parseInt(e.target.value);
+      setVolume(newVolume);
+      videoRef.current.volume = newVolume / 10; // Convert volume to 0-1
+      setIsMuted(newVolume === 0); // Automatically mute if volume is 0
     }
   };
 
@@ -70,10 +92,10 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
 
   // Handle full-screen toggle
   const toggleFullScreen = () => {
-    if (videoRef.current) {
+    if (containerRef.current) {
       if (!isFullScreen) {
-        if (videoRef.current.requestFullscreen) {
-          videoRef.current.requestFullscreen();
+        if (containerRef.current.requestFullscreen) {
+          containerRef.current.requestFullscreen();
         }
       } else {
         if (document.exitFullscreen) {
@@ -112,7 +134,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   }, []);
 
   return (
-    <div className={`video-container relative w-full max-w-4xl mx-auto mt-12 ${isDarkMode ? 'dark' : ''}`}>
+    <div ref={containerRef} className={`video-container relative w-full max-w-4xl mx-auto mt-12 ${isDarkMode ? 'dark' : ''}`}>
       {/* Video Element */}
       <video ref={videoRef} className="video-player" src={videoSrc} />
 
@@ -148,10 +170,35 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       {/* Fullscreen Toggle */}
       <button className="fullscreen-button" onClick={toggleFullScreen}>
         <img
-          src={isFullScreen ? "/playerIcons/ExitFullScreen.png" : "/playerIcons/Fullscreen.png"}
+          src={isFullScreen ? "/playerIcons/ExitFullscreen.png" : "/playerIcons/Fullscreen.png"}
           alt="Fullscreen Toggle"
         />
       </button>
+
+      {/* Volume Button */}
+      <div 
+        className="volume-container" 
+        onMouseEnter={() => setShowVolumeBar(true)} 
+        onMouseLeave={() => setShowVolumeBar(false)}
+      >
+        <button className="volume-button" onClick={toggleMute}>
+          <img src={isMuted || volume === 0 ? "/playerIcons/Muted.png" : "/playerIcons/Unmuted.png"} alt="Volume" />
+        </button>
+
+        {/* Volume Bar (Visible on hover) */}
+        {showVolumeBar && (
+          <input
+            type="range"
+            className="volume-bar"
+            min="0"
+            max="10"
+            step="1"
+            value={volume}
+            onChange={handleVolumeChange}
+            style={{ transform: 'rotate(-90deg)' }}
+          />
+        )}
+      </div>
     </div>
   );
 }

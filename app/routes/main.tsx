@@ -44,6 +44,9 @@ export default function MainPage() {
         Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
       </button>
 
+      {/* Video Player */}
+      {selectedVideo && <VideoPlayer videoSrc={selectedVideo} isDarkMode={isDarkMode} />}
+      
       {/* Video Selection */}
       <div className="mb-4">
         <h2 className="text-3xl font-bold mb-4">Available Videos:</h2>
@@ -66,8 +69,6 @@ export default function MainPage() {
         </div>
       </div>
 
-      {/* Video Player */}
-      {selectedVideo && <VideoPlayer videoSrc={selectedVideo} isDarkMode={isDarkMode} />}
     </div>
   );
 }
