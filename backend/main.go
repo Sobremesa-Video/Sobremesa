@@ -67,9 +67,8 @@ func main() {
 			serveWebSocket(w, r, &hub)
 		})
 
+		print("Server online")
 		err := http.ListenAndServe("localhost:8080", nil)
-
-		print("serving on localhost...")
 		if err != nil {
 			log.Fatal("ListenAndServe: ", err)
 		}
