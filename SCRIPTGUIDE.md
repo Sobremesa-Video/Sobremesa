@@ -16,3 +16,8 @@
     runBackend.bat {--downloadingDeps}
 
 * downloadingDeps: download go modules, defaults to false
+
+### If you do not have go installed, add the flag `--exec`
+
+
+

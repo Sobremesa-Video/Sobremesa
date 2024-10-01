@@ -1,22 +1,30 @@
 #!/bin/bash
 
 downloading=false;
+exec=false;
 
-goVer="$(go version)"
-
-if [ "$goVer" == "" ]
-  then
-    echo "Please ensure go is downloaded!"
-    exit 1
-fi
 
 for arg in "$@"
 do
   if [ "$arg" == "--downloadingDeps" ]
-    then
-      downloading=true
+    then downloading=true
+  elif [ "$arg" == "--exec" ]
+    then exec=true
    fi
 done
+
+if $exec
+  then
+    downloading=false
+  else
+    goVer="$(go version)"
+
+    if [ "$goVer" == "" ]
+      then
+        echo "go is not installed! Please either ensure it is installed or run \`sh runBackend.sh --exec\`"
+        exit 1
+    fi
+fi
 
 cd backend || (echo "unable to access backend folder"; exit 1)
 
@@ -27,5 +35,9 @@ if $downloading
 fi
 
 echo "Running server..."
-go run main.go
 
+if $exec
+  then ./watchparty || echo "Executable unable to be ran."
+else
+  go run main.go
+fi
