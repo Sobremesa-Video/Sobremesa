@@ -135,6 +135,9 @@
   border: none;
   padding: 0.5rem;
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5); /* Grey translucent background */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
 }
 
 .volume-button img {
@@ -191,4 +194,15 @@
 
 .dark .timestamp {
   background-color: #444;
+}
+
+/* Overlay fade effect */
+.visible {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.hidden {
+  opacity: 0;
+  transition: opacity 0.5s ease;
 }

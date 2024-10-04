@@ -10,6 +10,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null); // Reference to the container
   const progressBarRef = useRef<HTMLInputElement>(null);
+  
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -17,6 +18,8 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   const [volume, setVolume] = useState(5); // Volume state (default is 5)
   const [isMuted, setIsMuted] = useState(false); // Track if the volume is muted
   const [showVolumeBar, setShowVolumeBar] = useState(false); // Show volume bar on hover
+  
+  const [isOverlayVisible, setIsOverlayVisible] = useState(true); // State to track overlay visibility
 
   // Play/Pause function
   const togglePlayPause = () => {
@@ -133,6 +136,39 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
     };
   }, []);
 
+  // Timer to hide the overlay after inactivity
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect(); // Get the player boundaries
+        const cursorY = e.clientY - rect.top; // Get Y position relative to the player
+
+        // Show the overlay only if the cursor is above a certain height
+        if (cursorY < rect.height * 0.6) {
+          setIsOverlayVisible(true);
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            setIsOverlayVisible(false);
+          }, 2000); // Hide after 2 seconds of inactivity
+        }
+      }
+    };
+
+    if (containerRef.current) {
+      containerRef.current.addEventListener('mousemove', handleMouseMove);
+    }
+
+    return () => {
+      if (containerRef.current) {
+        containerRef.current.removeEventListener('mousemove', handleMouseMove);
+      }
+      clearTimeout(timer);
+    };
+  }, []);
+
+
   return (
     <div ref={containerRef} className={`video-container relative w-full max-w-4xl mx-auto mt-12 ${isDarkMode ? 'dark' : ''}`}>
       {/* Video Element */}
@@ -142,7 +178,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       <input
         type="range"
         ref={progressBarRef}
-        className="progress-bar"
+        className={`progress-bar ${isOverlayVisible ? 'visible' : 'hidden'}`} // Hide or show with CSS
         min="0"
         max="100"
         step="0.1"
@@ -150,25 +186,25 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       />
 
       {/* Play/Pause Button */}
-      <button className="play-pause-button" onClick={togglePlayPause}>
+      <button className={`play-pause-button ${isOverlayVisible ? 'visible' : 'hidden'}`} onClick={togglePlayPause}>
         <img src={isPlaying ? "/playerIcons/Pause.png" : "/playerIcons/Play.png"} alt="Play/Pause" />
       </button>
 
       {/* Rewind Button */}
-      <button className="rewind-button" onClick={handleRewind}>
+      <button className={`rewind-button ${isOverlayVisible ? 'visible' : 'hidden'}`} onClick={handleRewind}>
         <img src="/playerIcons/Rewind.png" alt="Rewind" />
       </button>
 
       {/* Skip Button */}
-      <button className="skip-button" onClick={handleSkip}>
+      <button className={`skip-button ${isOverlayVisible ? 'visible' : 'hidden'}`} onClick={handleSkip}>
         <img src="/playerIcons/Skip.png" alt="Skip" />
       </button>
 
       {/* Timestamp */}
-      <div className="timestamp">{formatTime(currentTime)}</div>
+      <div className={`timestamp ${isOverlayVisible ? 'visible' : 'hidden'}`}>{formatTime(currentTime)}</div>
 
       {/* Fullscreen Toggle */}
-      <button className="fullscreen-button" onClick={toggleFullScreen}>
+      <button className={`fullscreen-button ${isOverlayVisible ? 'visible' : 'hidden'}`} onClick={toggleFullScreen}>
         <img
           src={isFullScreen ? "/playerIcons/ExitFullscreen.png" : "/playerIcons/Fullscreen.png"}
           alt="Fullscreen Toggle"
@@ -177,7 +213,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
 
       {/* Volume Button */}
       <div 
-        className="volume-container" 
+        className={`volume-container ${isOverlayVisible ? 'visible' : 'hidden'}`}
         onMouseEnter={() => setShowVolumeBar(true)} 
         onMouseLeave={() => setShowVolumeBar(false)}
       >
