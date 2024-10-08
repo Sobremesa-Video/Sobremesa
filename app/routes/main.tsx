@@ -13,6 +13,7 @@ export const meta: MetaFunction = () => {
 export default function MainPage() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isChatVisible, setIsChatVisible] = useState(false); //State for chatbox visiblity
 
   // Handle video selection
   const handleVideoClick = (video: string) => {
@@ -68,7 +69,13 @@ export default function MainPage() {
           ))}
         </div>
       </div>
-
+      
+      {isChatVisible && (
+      <div className="chatbox absolute bottom-0 right-0 w-1/3 h-1/3 bg-transparent border border-gray-500">
+      {/*Chatbox content*/}
+      <p className="text-white">Chat is active</p>
+      </div>
+    )}
     </div>
   );
 }
