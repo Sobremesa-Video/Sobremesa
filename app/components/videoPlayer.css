@@ -148,12 +148,15 @@
 /* Vertical Volume Bar */
 .volume-bar {
   position: absolute;
-  top: 5rem; 
+  top: 90px; 
   width: 100px;
   appearance: none;
   background-color: #555;
   height: 5px;
   cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5); /* Grey translucent background */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
 }
 
 .volume-bar::-webkit-slider-thumb {
@@ -196,13 +199,62 @@
   background-color: #444;
 }
 
-/* Overlay fade effect */
+.chat-container {
+  position: absolute;
+  top: 1rem;
+  right: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5); /* Grey translucent background */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.chat-button img {
+  width: 30px;
+  height: 30px;
+}
+
+.chatbox {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+/* General fade effect for all buttons */
 .visible {
   opacity: 1;
-  transition: opacity 0.5s ease;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0s;
 }
 
 .hidden {
   opacity: 0;
-  transition: opacity 0.5s ease;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s 1s;
+}
+
+/* Volume Container and Volume Bar */
+.volume-container {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0s;
+}
+
+.volume-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s 0.5s;
+}
+
+.volume-bar {
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.volume-bar.hidden {
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }

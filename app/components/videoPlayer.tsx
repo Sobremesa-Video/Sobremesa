@@ -10,7 +10,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null); // Reference to the container
   const progressBarRef = useRef<HTMLInputElement>(null);
-  
+  const [isChatVisible, setIsChatVisible] = useState(false); //State for chatbox visiblity
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -109,6 +109,11 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
     }
   };
 
+  // Handle Chatbox Toggle
+  const toggleChat = () => {
+    setIsChatVisible(!isChatVisible); // Toggle Chatbox visibility
+  }
+
   // Handle progress bar drag
   const handleProgressBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (videoRef.current) {
@@ -151,7 +156,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
           clearTimeout(timer);
           timer = setTimeout(() => {
             setIsOverlayVisible(false);
-          }, 2000); // Hide after 2 seconds of inactivity
+          }, 1000); // Hide after 1 second of inactivity
         }
       }
     };
@@ -210,7 +215,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
           alt="Fullscreen Toggle"
         />
       </button>
-
+    
       {/* Volume Button */}
       <div 
         className={`volume-container ${isOverlayVisible ? 'visible' : 'hidden'}`}
@@ -235,6 +240,17 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
           />
         )}
       </div>
+
+      <div className={`chat-container ${isOverlayVisible ? 'visible' : 'hidden'}`}>
+        <button className="chat-button" onClick = {toggleChat}>
+        <img
+          src={isChatVisible ? "/playerIcons/ChatEnabled.png" : "/playerIcons/Chat_Disabled.png"}
+          alt = "Chat Toggle"
+          />
+          </button>
+      </div>
     </div>
+
+    
   );
 }
