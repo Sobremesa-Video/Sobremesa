@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 .mainGrid {
   display: grid;
   grid-template-columns: 2fr 3fr 2fr;
@@ -8,145 +9,76 @@
     "logo title signup"
     "left main right"
     "footer footer footer";
-  width: 100vw;
+  max-width: 100%;
   height: 100vh;
   align-items: center;
   justify-content: center;
 }
 
-.welcomeCenter{
-    grid-area: main;
-    display: flex;
-    flex-direction: row;
-
-    grid-template-areas: "logoCenter welcomeText";
-
-    width: 40rem;
-    height: 15rem;
-
-    justify-content: center;
-    align-items: center;
-
-    background: url("../assets/textures/darkglass.svg");
-    backdrop-filter: blur(20px);
-    background-size: cover;
-    background-position: center;
-    border-radius: 15px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-    border: 2px solid black;
-
-}
-
-.logo {
-    width: 8rem;
-    stroke: black;
-  stroke-width: 4px;
-  stroke-linejoin: round;
-  paint-order: stroke;
-  -webkit-filter: drop-shadow(1px 1px 0 black)
-                  drop-shadow(-1px -1px 0 black);
-  filter: drop-shadow(1px 1px 0 black) 
-          drop-shadow(-1px -1px 0 black);
-}
-
 .background {
   background-image: url("../assets/backgrounds/homedark.gif");
-    background-size: cover;
+  background-size: 100% 100%;
+  background-position: right;
 }
 
-.welcomeText {
-  color: white;
-  text-align: center;
-  padding: 1rem;
-  line-height: 1;
-  
-  -webkit-font-smoothing: antialiased;
-  text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-  -webkit-text-stroke: 3px black;
-  paint-order: stroke fill;
-
+.welcome {
+  grid-area: main;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.welcomeText h1 {
-  font-size: 4rem;
-  font-family: 'Pacifico', cursive;
+.account {
+  grid-area: signup;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
-.welcomeText p {
-    font-size: 1.5rem;
-    font-family: 'Roboto', sans-serif;
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "signup"
+      "main"
+      "footer";
+    height: 100vh;
+  }
 }
 
-.accountCenter {
-    grid-area: signup;
-    position: relative;
-    top: -4rem;
-    right: -5rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background: url("../assets/textures/darkglass.svg");
-    backdrop-filter: blur(20px);
-    background-size: cover;
-    background-position: center;
-    border-radius: 100rem;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-    border: 2px solid black;
-    width: 20rem;
-    height: 5rem;
-}
+@media (max-width: 768px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "signup"
+      "main"
+      "footer";
+    height: 100vh;
+  }
 
-.signupButton {
-    background: url("../assets/textures/darkglass.svg");
-    backdrop-filter: blur(20px);
+  .background {
     background-size: cover;
     background-position: center;
-    border-radius: 100rem;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    border: 2px solid black;
-    width: 7rem;
-    line-height: 3rem;
-    text-align: center;
-    margin: 1rem;
-    -webkit-font-smoothing: antialiased;
-    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-    -webkit-text-stroke: 3px black;
-    paint-order: stroke fill;
-    font-family: 'Roboto', sans-serif;
+  }
 }
 
-.signupButton:hover {
-    transform: scale(1.1);
-    transition: transform 0.3s ease-in-out;
-}
+@media (max-width: 480px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "signup"
+      "main"
+      "footer";
+    height: 100vh;
+  }
 
-.loginButton {
-    margin: 1rem;
-    width: 7rem;
-    line-height: 3rem;
-    text-align: center;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
-    -webkit-font-smoothing: antialiased;
-    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.5);
-    -webkit-text-stroke: 3px black;
-    paint-order: stroke fill;
-    font-family: 'Roboto', sans-serif;
+  .welcome, .account {
+    flex-direction: column;
+  }
 }
-
-.loginButton:hover {
-    transform: scale(1.1);
-    transition: transform 0.3s ease-in-out;    
-}
-
-.signupButton:active {
-    transform: scale(0.9);
-    transition: transform 0.1s ease-in-out;
-}
-
-.loginButton:active {
-    transform: scale(0.9);
-    transition: transform 0.1s ease-in-out;
-}
-
