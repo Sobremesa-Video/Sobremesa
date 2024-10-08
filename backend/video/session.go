@@ -1,10 +1,9 @@
 package video
 
 import (
+	"sync"
 	"watchparty/chat"
 )
-
-var idCounter = 0 // TODO eventually, this will switch to getting auto-increments from DB
 
 type Session struct {
 	ID   int64
@@ -14,17 +13,8 @@ type Session struct {
 	Hub  *chat.ConnectionHub
 }
 
-func (s *Session) Run() {
+func (s *Session) Run(group *sync.WaitGroup) {
+	defer group.Done()
+	defer print("session done")
 	s.Hub.Routine()
-}
-
-func NewSession() Session {
-	idCounter++
-	return Session{
-		ID:   int64(idCounter),
-		Name: "",
-		Path: "",
-
-		Hub: chat.NewHub(),
-	}
 }
