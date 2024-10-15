@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+.sign-up-alt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+  padding: 20px;
+  background-image: url("../assets/backgrounds/homedark.gif");
+  background-size: cover;
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.header-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  letter-spacing: 4px;
+}
+
+/* Rounded form box */
+.form-box {
+  background: url("../assets/textures/darkglass.svg");
+  border-radius: 20px;
+  box-shadow: 0 80px 30px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  max-width: 45%;
+  width: 100%;
+  border: 2px solid black;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  color: black;
+}
+
+.input {
+  margin-bottom: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.terms input {
+  margin-right: 10px;
+}
+
+.submit-button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #45a049;
+}
