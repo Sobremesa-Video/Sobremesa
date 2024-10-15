@@ -18,7 +18,6 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   const [volume, setVolume] = useState(5); // Volume state (default is 5)
   const [isMuted, setIsMuted] = useState(false); // Track if the volume is muted
   const [showVolumeBar, setShowVolumeBar] = useState(false); // Show volume bar on hover
-  
   const [isOverlayVisible, setIsOverlayVisible] = useState(true); // State to track overlay visibility
 
   // Play/Pause function
@@ -151,7 +150,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
         const cursorY = e.clientY - rect.top; // Get Y position relative to the player
 
         // Show the overlay only if the cursor is above a certain height
-        if (cursorY < rect.height * 0.6) {
+        if (cursorY < rect.height * 0.6) { // Tracks activity of the top 60% of video player
           setIsOverlayVisible(true);
           clearTimeout(timer);
           timer = setTimeout(() => {
@@ -216,6 +215,16 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
         />
       </button>
     
+      {/* Chatbox Toggle */}
+      <div className={`chat-container ${isOverlayVisible ? 'visible' : 'hidden'}`}>
+        <button className="chat-button" onClick = {toggleChat}>
+        <img
+          src={isChatVisible ? "/playerIcons/ChatEnabled.png" : "/playerIcons/Chat_Disabled.png"}
+          alt = "Chat Toggle"
+          />
+          </button>
+      </div>
+
       {/* Volume Button */}
       <div 
         className={`volume-container ${isOverlayVisible ? 'visible' : 'hidden'}`}
@@ -240,17 +249,6 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
           />
         )}
       </div>
-
-      <div className={`chat-container ${isOverlayVisible ? 'visible' : 'hidden'}`}>
-        <button className="chat-button" onClick = {toggleChat}>
-        <img
-          src={isChatVisible ? "/playerIcons/ChatEnabled.png" : "/playerIcons/Chat_Disabled.png"}
-          alt = "Chat Toggle"
-          />
-          </button>
-      </div>
     </div>
-
-    
   );
 }

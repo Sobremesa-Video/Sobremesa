@@ -1,8 +1,14 @@
-import type { MetaFunction } from "@remix-run/node";
+import type { LoaderFunction, MetaFunction } from "@remix-run/node";
+import { useLoaderData } from "@remix-run/react";
 import { useState, useEffect } from 'react';
-import VideoPlayer from '~/components/videoPlayer'; // Importing the video player component
+import VideoPlayer from '~/components/videoPlayer';
+import fs from 'fs';
+import path from 'path';
 
-const videos = ['sample.mp4', 'big_buck_bunny.mp4']; // List of available videos
+// Define the type of the loader data
+type LoaderData = {
+  videoFiles: string[];
+};
 
 export const meta: MetaFunction = () => {
   return [
@@ -10,10 +16,25 @@ export const meta: MetaFunction = () => {
   ];
 };
 
+// Loader function to read video files
+export const loader: LoaderFunction = async () => {
+  const mediaPath = path.resolve('public', 'media'); // Loads videos in public -> media
+  const files = fs.readdirSync(mediaPath);
+
+  // Filter for video files with '.mp4' extension
+  const videoFiles = files.filter(file => file.endsWith('.mp4'));
+  
+  // Return the video files to the loader
+  return { videoFiles };
+};
+
 export default function MainPage() {
+  // Use the loader data and provide the correct type
+  const { videoFiles } = useLoaderData<LoaderData>(); // Explicitly define the type
+  
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isChatVisible, setIsChatVisible] = useState(false); //State for chatbox visiblity
+  const [isChatVisible, setIsChatVisible] = useState(false); // State for chatbox visibility
 
   // Handle video selection
   const handleVideoClick = (video: string) => {
@@ -52,7 +73,7 @@ export default function MainPage() {
       <div className="mb-4">
         <h2 className="text-3xl font-bold mb-4">Available Videos:</h2>
         <div className="grid grid-cols-3 gap-4">
-          {videos.map((video, index) => (
+          {videoFiles.map((video: string, index: number) => (
             <div key={index} className="flex flex-col items-center space-y-2">
               <video
                 width="200"
@@ -72,7 +93,7 @@ export default function MainPage() {
       
       {isChatVisible && (
       <div className="chatbox absolute bottom-0 right-0 w-1/3 h-1/3 bg-transparent border border-gray-500">
-      {/*Chatbox content*/}
+      {/* Chatbox content */}
       <p className="text-white">Chat is active</p>
       </div>
     )}
