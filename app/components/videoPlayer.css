@@ -33,7 +33,7 @@
   z-index: 10;
 }
 
-/* Resize the play/pause button to a medium size */
+/* Play/pause button */
 .play-pause-button {
   top: 50%;
   left: 50%;
@@ -51,7 +51,7 @@
   object-fit: contain;
 }
 
-/* Rewind button resized */
+/* Rewind button */
 .rewind-button {
   top: 50%;
   left: calc(50% - 150px); 
@@ -69,7 +69,7 @@
   object-fit: contain;
 }
 
-/* Skip button resized */
+/* Skip button */
 .skip-button {
   top: 50%;
   right: calc(50% - 150px); 
@@ -236,25 +236,4 @@
   transition: opacity 0.5s ease, visibility 0s 1s;
 }
 
-/* Volume Container and Volume Bar */
-.volume-container {
-  opacity: 1;
-  visibility: visible;
-  transition: opacity 0.3s ease, visibility 0s;
-}
 
-.volume-container.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0s 0.5s;
-}
-
-.volume-bar {
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.volume-bar.hidden {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
