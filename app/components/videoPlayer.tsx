@@ -121,12 +121,32 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
     }
   };
 
-  // Format time to mm:ss
-  const formatTime = (time: number) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-  };
+  // Format time to mm:ss, and handle NaN duration
+const formatTime = (time: number) => {
+  if (isNaN(time)) return "0:00";
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+  return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+};
+
+useEffect(() => {
+  if (videoRef.current) {
+    const handleLoadedMetadata = () => {
+      if (videoRef.current) {
+        setDuration(videoRef.current.duration); // Set the video duration when metadata is loaded
+      }
+    };
+
+    videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+    
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+      }
+    };
+  }
+}, [videoSrc]); // Re-run effect when the video source changes
+
 
   // Add a listener to track full-screen changes
   useEffect(() => {
@@ -205,7 +225,14 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       </button>
 
       {/* Timestamp */}
-      <div className={`timestamp ${isOverlayVisible ? 'visible' : 'hidden'}`}>{formatTime(currentTime)}</div>
+      <div className={`timestamp ${isOverlayVisible ? 'visible' : 'hidden'}`}>
+        {formatTime(currentTime)} / {formatTime(duration)}
+      </div>
+
+      <div className={`timestamp ${isOverlayVisible ? 'visible' : 'hidden'}`}>
+        {formatTime(currentTime)} / {formatTime(duration)}
+      </div>
+
 
       {/* Fullscreen Toggle */}
       <button className={`fullscreen-button ${isOverlayVisible ? 'visible' : 'hidden'}`} onClick={toggleFullScreen}>
