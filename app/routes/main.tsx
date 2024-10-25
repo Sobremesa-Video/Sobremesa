@@ -6,6 +6,11 @@ import fs from 'fs';
 import path from 'path';
 import Chat from "~/components/chat";
 
+/// TODO for frontend people
+  // - Make chat visibility work
+  // - alter chat.tsx so that when a video is selected, it'll call constructSocket() of chat.tsx
+    // Note: I don't really care if it's that function specifically, but its behavior needs to be performed.
+
 // Define the type of the loader data
 type LoaderData = {
   videoFiles: string[];
@@ -32,8 +37,6 @@ export const loader: LoaderFunction = async () => {
 export default function MainPage() {
   // Use the loader data and provide the correct type
   const { videoFiles } = useLoaderData<LoaderData>(); // Explicitly define the type
-
-  const [socket, setSocket] = useState<WebSocket | null>(null);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isChatVisible, setIsChatVisible] = useState(false); // State for chatbox visibility
@@ -44,24 +47,6 @@ export default function MainPage() {
   };
 
   // Toggle dark/light mode
-
-  function constructSocket() {
-    const newSocket = new WebSocket("ws://localhost:8080/ws");
-
-    newSocket.addEventListener("message", (event) => {
-      try {
-        const data = JSON.parse(event.data);
-        if (data.dataType == "NAME") {
-          console.log("Username = " + data.data);
-        }
-      } catch (error) {
-        handleExternalMessage(event.data)
-      }
-    });
-
-    setSocket(newSocket)
-  }
-
   // Handle theme toggle
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -71,6 +56,7 @@ export default function MainPage() {
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);
   }, [isDarkMode]);
+
 
   return (
     <div className={`flex flex-col justify-start items-center min-h-screen pt-12 transition-colors ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
