@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.mainGrid {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+  grid-template-rows: 2fr 3fr 2fr;
+  grid-gap: 1rem;
+  grid-template-areas:
+    "logo title signup"
+    "left main right"
+    "footer footer footer";
+  max-width: 100%;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+}
+
+.background {
+  background-image: url("../assets/backgrounds/homedark.gif");
+  background-size: 100% 100%;
+  background-position: right;
+}
+
+.welcome {
+  grid-area: main;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.account {
+  grid-area: signup;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "signup"
+      "main"
+      "footer";
+    height: 100vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "signup"
+      "main"
+      "footer";
+    height: 100vh;
+  }
+
+  .background {
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-template-areas:
+      "signup"
+      "main"
+      "footer";
+    height: 100vh;
+  }
+
+  .welcome, .account {
+    flex-direction: column;
+  }
+}

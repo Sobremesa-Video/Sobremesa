@@ -1,0 +1,239 @@
+.video-container {
+  position: relative;
+  background-color: #000;
+}
+
+.video-container:fullscreen {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+}
+
+.video-player {
+  width: 100%;
+  height: auto;
+}
+
+/* Fullscreen video */
+.video-container:fullscreen .video-player {
+  width: 100%;
+  height: 100%;
+}
+
+/* Button Styling for Correct Sizing */
+.play-pause-button,
+.rewind-button,
+.skip-button,
+.fullscreen-button {
+  position: absolute;
+  background-color: transparent;
+  padding: 0.5rem;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Play/pause button */
+.play-pause-button {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background-color: rgba(78, 76, 76, 0.259);
+  padding: 0.5rem;
+  border-radius: 100px;
+}
+
+.play-pause-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Rewind button */
+.rewind-button {
+  top: 50%;
+  left: calc(50% - 150px); 
+  transform: translateY(-50%);
+  width: 100px;
+  height: 100px;
+  background-color: rgba(78, 76, 76, 0.259);
+  padding: 0.5rem;
+  border-radius: 100px;
+}
+
+.rewind-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Skip button */
+.skip-button {
+  top: 50%;
+  right: calc(50% - 150px); 
+  transform: translateY(-50%);
+  width: 100px;
+  height: 100px;
+  background-color: rgba(78, 76, 76, 0.259);
+  padding: 0.5rem;
+  border-radius: 100px;
+}
+
+.skip-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Timestamp Styling */
+.timestamp {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: white;
+  background-color: black;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.5rem;
+  z-index: 10;
+  font-size: 14px;
+}
+
+/* Fullscreen Button Styling */
+.fullscreen-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 30px;
+  height: 30px;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5); /* Grey translucent background */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.fullscreen-button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Volume Button */
+.volume-container {
+  position: absolute;
+  top: 1rem;
+  right: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.volume-button {
+  background-color: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5); /* Grey translucent background */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.volume-button img {
+  width: 30px;
+  height: 30px;
+}
+
+/* Vertical Volume Bar */
+.volume-bar {
+  position: absolute;
+  top: 90px; 
+  width: 100px;
+  appearance: none;
+  background-color: #555;
+  height: 5px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5); /* Grey translucent background */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.volume-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Draggable Progress Bar */
+.progress-bar {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  right: 0;
+  width: 100%;
+  appearance: none;
+  background: linear-gradient(90deg, blue 0%, purple 100%);
+  height: 5px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.progress-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.dark .video-container {
+  background-color: #222;
+}
+
+.dark .timestamp {
+  background-color: #444;
+}
+
+.chat-container {
+  position: absolute;
+  top: 1rem;
+  right: 8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, 0.5); /* Grey translucent background */
+  padding: 0.5rem;
+  border-radius: 0.5rem; /* Rounded corners */
+}
+
+.chat-button img {
+  width: 30px;
+  height: 30px;
+}
+
+.chatbox {
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+}
+
+/* General fade effect for all buttons */
+.visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0s;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s 1s;
+}
+
+
