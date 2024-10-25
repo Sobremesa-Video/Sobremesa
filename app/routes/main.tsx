@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import VideoPlayer from '~/components/videoPlayer';
 import fs from 'fs';
 import path from 'path';
+import Chat from "~/components/chat";
 
 // Define the type of the loader data
 type LoaderData = {
@@ -97,6 +98,7 @@ export default function MainPage() {
       <p className="text-white">Chat is active</p>
       </div>
     )}
+    <Chat />
     </div>
   );
 }
