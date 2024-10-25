@@ -8,38 +8,34 @@ export default function Chat() {
     const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true); // Track if auto-scroll is enabled
     const messageContainerRef = useRef<HTMLUListElement>(null);
 
+
     function constructSocket() {
         const newSocket = new WebSocket("ws://localhost:8080/ws");
-
+    
         newSocket.addEventListener("message", (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                if (data.dataType == "NAME") {
-                    console.log("Username = " + data.data);
-                }
-            } catch (error) {
-                handleExternalMessage(event.data)
+          try {
+            const data = JSON.parse(event.data);
+            if (data.dataType == "NAME") {
+              console.log("Username = " + data.data);
             }
+          } catch (error) {
+            handleExternalMessage(event.data)
+          }
         });
-
+    
         setSocket(newSocket)
-    }
+      }
+
+    const handleSendMessage = () => {
+        if (chatInput.trim() !== '') {
+            setMessages([...messages, chatInput]);
+            setChatInput(''); // Clear input after sending
+        }
+    };
 
     const handleExternalMessage = (new_val:string) => {
         setMessages((prevMessages) => [...prevMessages, new_val]);
     }
-
-    const handleSendMessage = () => {
-        // Check if the WebSocket is initialized and open before trying to send
-        if (chatInput.trim() !== '') {
-            if (socket == null) {
-                // TODO if a frontend person could put a popup like "unable to connect to chat" here that would be fantastic
-            } else {
-                socket.send(chatInput); // Send the message
-                setChatInput(''); // Clear the input field after sending
-            }
-        }
-    };
 
     // Handle Enter key press in the chat input
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -63,6 +59,15 @@ export default function Chat() {
         }
     };
 
+    // Function to run when the chat is loaded
+    const onChatLoad = () => {
+        constructSocket(); // Connect to the WebSocket server
+        // Add any other logic you want to run when the chat loads
+    };
+
+    useEffect(() => {
+        onChatLoad();
+    }, []); // Empty dependency array ensures this runs only once when the component mounts
 
     return (
         <div className="chat">
