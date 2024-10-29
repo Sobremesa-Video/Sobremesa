@@ -26,7 +26,7 @@
   padding: 10px;
   border: none;
   background-color: transparent;
-  color: white;
+  color: grey;
   outline: none;
 }
 
@@ -38,7 +38,7 @@
   height: 300px;
   width: 100%;
   overflow: scroll;
-  background: linear-gradient(to top, black, transparent);
+  background: grey;
 }
 
 .sendButton {
@@ -69,5 +69,5 @@
 }
 
 .message {
-    color: white;
+    color: black;
 }
