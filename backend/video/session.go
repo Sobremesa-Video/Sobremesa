@@ -2,6 +2,7 @@ package video
 
 import (
 	"sync"
+	"watchparty/chat"
 )
 
 type Session struct {

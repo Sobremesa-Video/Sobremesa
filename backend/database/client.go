@@ -1,14 +1,9 @@
 package database
 
+import "database/sql"
+
 type Client interface {
 	Execute(statement string, args ...any)
-	Query(statement string, args ...any) Rows
-}
-
-type Rows interface {
-	// TODO
-}
-
-func GetClient() *Client {
-	// TODO
+	Query(statement string, args ...any) sql.Rows
+	init()
 }
