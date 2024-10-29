@@ -1,0 +1,1 @@
+IMPORTANT: having these binaries seriously makes the project bigger. Once we've got a testing server, get rid of them.
