@@ -6,6 +6,12 @@ type SQLiteClient struct {
 	conn *sql.DB
 }
 
+func GetSQLiteClient() *SQLiteClient {
+	conn := SQLiteClient{}
+	_ = conn.init()
+	return &conn
+}
+
 func (client *SQLiteClient) init() error {
 	var err error
 	client.conn, err = sql.Open("sqlite3", "main.db")

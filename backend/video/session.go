@@ -3,14 +3,16 @@ package video
 import (
 	"sync"
 	"watchparty/chat"
+	"watchparty/database"
 )
 
 type Session struct {
 	ID   int64
 	Name string
 
-	Path string // TODO figure out how this should work - stream or local filepath?
-	Hub  *chat.ConnectionHub
+	Path   string // TODO figure out how this should work - stream or local filepath?
+	Hub    *chat.ConnectionHub
+	DBConn *database.Client
 }
 
 func (s *Session) Run(group *sync.WaitGroup) {
