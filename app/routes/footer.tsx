@@ -1,9 +1,10 @@
 import React from 'react';
 import './footer.css'; // Import the CSS file for styling
+import { Link } from '@remix-run/react';
 
 export default function Footer() {
   return (
-    <footer className="footerr">
+    <footer className="footer-bottom">
       <div className="footer-container">
         {/* Logo and Branding */}
         <div className="footer-branding">
@@ -11,8 +12,9 @@ export default function Footer() {
             className="footer-logo"
             alt="Sobremesa Logo"
             src="app/assets/logo/sobremesa.svg"
+            
           />
-          <h3 className="footer-title">SOBREMESA</h3>
+          <h3 className="footer-title"><Link to="/">SOBREMESA</Link></h3>
         </div>
 
         {/* Footer Icons */}
