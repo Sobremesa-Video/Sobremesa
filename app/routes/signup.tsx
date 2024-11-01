@@ -1,9 +1,11 @@
-import { redirect } from "@remix-run/node";
-import type { MetaFunction } from "@remix-run/node";
-import type { ActionFunction } from "@remix-run/node";
+// import { redirect } from "@remix-run/node";
+// import type { MetaFunction } from "@remix-run/node";
+// import type { ActionFunction } from "@remix-run/node";
 
 import "app/styles/signupalt.css";
 import { Link } from '@remix-run/react';
+import Footer from "./footer";
+
 
 export const meta = () => {
   return [{ title: "Sobremesa" }];
@@ -29,13 +31,17 @@ export default function SignUpAlt() {
           <div className="terms">
             <input type="checkbox" id="terms" />
             <label htmlFor="terms">
-              Yes I agree to the <a href="#">Terms & Conditions</a>
+              Yes, I agree to the <a href="#">Terms & Conditions</a>
             </label>
           </div>
           {/* <button className="submit-button">Submit</button> */}
           <button><Link to="/main" className="submit-button">Submit</Link></button>
         </form>
+        
       </div>
+      <Footer />
+      
     </div>
+    
   );
 }
