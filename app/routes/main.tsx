@@ -48,7 +48,7 @@ export default function MainPage() {
       {/* Header Section */}
       <header className="flex justify-between items-center w-full p-4">
         <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-          Welcome to Sobremesa
+          Sobremesa
         </h1>
         <button
           onClick={toggleDarkMode}
