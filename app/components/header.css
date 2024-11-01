@@ -1,0 +1,34 @@
+.Header {
+    display: grid;
+    grid-gap: .05rem;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "logo name signin";
+    width: 100vw;
+    max-height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.login {
+    grid-area: signin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10vh;
+}
+
+@media (orientation: portrait) {
+    .Header {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "name"
+        "signin";
+        width: 100vw;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+}

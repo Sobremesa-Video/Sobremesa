@@ -1,0 +1,59 @@
+.welcomeCenter {
+  padding: 3vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url("../assets/textures/darkglass.svg");
+  backdrop-filter: blur(20px);
+  background-size: cover;
+  background-position: center;
+  border-radius: 5vw;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+  border: .2vh solid black;
+}
+
+.logo {
+  width: 20vw;
+  max-width: 8rem;
+  stroke: black;
+  stroke-width: .4vw;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  filter: drop-shadow(.1vh .1vh 0 black) drop-shadow(-0.1vh -0.1vh 0 black);
+}
+
+.welcomeText {
+  color: white;
+  text-align: center;
+  padding: 2vw;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 5rem 5rem 5rem rgba(0, 0, 0, 0.5);
+  -webkit-text-stroke: .3vw black;
+  paint-order: stroke fill;
+}
+
+.welcomeText h1 {
+  font-size: 8vw;
+  font-family: 'Pacifico', cursive;
+}
+
+.welcomeText p {
+  font-size: 4vw;
+  font-family: 'Roboto', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .welcomeCenter {
+    flex-direction: row;
+  }
+
+  .welcomeText h1 {
+    font-size: 5vw;
+  }
+
+  .welcomeText p {
+    font-size: 2vw;
+  }
+}

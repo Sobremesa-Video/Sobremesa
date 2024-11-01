@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
 import "app\\assets\\logo\\sobremesa.svg";
 import "app/styles/default.css";
-import { Link } from '@remix-run/react';
+import WelcomeCenter from "~/components/welcomeCenter";
+import AccountCenter from "~/components/accountCenter";
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,24 +13,29 @@ export const meta: MetaFunction = () => {
 };
 
 export default function Index() {
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey && event.key === 'm') {
+        window.location.href = '/main';
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   return (
-    <div className = "background">
-    <div className = "mainGrid">
-      <div className = "welcomeCenter">
-        <div className = "texture" />
-        <div className = "logo">
-          <img src = "app/assets/logo/sobremesa.svg" alt = "Sobremesa logo" />
+    <div className="background">
+      <div className="mainGrid">
+        <div className="welcome">
+          <WelcomeCenter />
         </div>
-        <div className = "welcomeText">
-          <h1>Sobremesa</h1>
-          <p>A new way to movie night</p>
+        <div className="account">
+          <AccountCenter />
         </div>
       </div>
-      <div className = "accountCenter">
-        <Link to="/login" className = 'loginButton'>Log in</Link>
-        <Link to="/signup" className = 'signupButton'>Sign up</Link>
-      </div>
-    </div>
     </div>
   );
 }

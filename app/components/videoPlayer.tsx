@@ -10,7 +10,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null); // Reference to the container
   const progressBarRef = useRef<HTMLInputElement>(null);
-  
+  const [isChatVisible, setIsChatVisible] = useState(false); // State for chatbox visibility
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -18,7 +18,6 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   const [volume, setVolume] = useState(5); // Volume state (default is 5)
   const [isMuted, setIsMuted] = useState(false); // Track if the volume is muted
   const [showVolumeBar, setShowVolumeBar] = useState(false); // Show volume bar on hover
-  
   const [isOverlayVisible, setIsOverlayVisible] = useState(true); // State to track overlay visibility
 
   // Play/Pause function
@@ -64,34 +63,88 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       videoRef.current.currentTime = Math.min(videoRef.current.duration, videoRef.current.currentTime + 5);
     }
   };
-
-  // Update current time and duration
+  // Reset progress bar and current time when a new video is loaded
   useEffect(() => {
     if (videoRef.current) {
-      setDuration(videoRef.current.duration);
+      setCurrentTime(0);
+      setDuration(videoRef.current.duration || 0);
+
+      if (progressBarRef.current) {
+        progressBarRef.current.value = '0'; // Reset progress bar to the left end
+      }
     }
   }, [videoSrc]);
 
+  // Reset player UI and states when a new video is selected
   useEffect(() => {
-    const updateTime = () => {
-      if (videoRef.current) {
-        setCurrentTime(videoRef.current.currentTime);
-        if (progressBarRef.current) {
-          progressBarRef.current.value = (videoRef.current.currentTime / videoRef.current.duration * 100).toString();
-        }
-      }
-    };
-
     if (videoRef.current) {
-      videoRef.current.addEventListener('timeupdate', updateTime);
-    }
+      videoRef.current.pause(); // Stop any playing video
+      videoRef.current.currentTime = 0; // Reset video time
+      setIsPlaying(false); // Reset play state
+      setCurrentTime(0); // Reset current time
+      setDuration(videoRef.current.duration || 0); // Reset video duration
+      setIsOverlayVisible(true); // Show the overlay initially
 
-    return () => {
-      if (videoRef.current) {
-        videoRef.current.removeEventListener('timeupdate', updateTime);
+      if (progressBarRef.current) {
+        progressBarRef.current.value = '0'; // Reset progress bar to the left end
       }
-    };
-  }, []);
+
+      setVolume(5); // Reset volume to default
+      setIsMuted(false); // Reset mute state
+    }
+  }, [videoSrc]);
+
+  // Reset player UI and states when a new video is selected
+useEffect(() => {
+  if (videoRef.current) {
+    videoRef.current.pause(); // Stop any playing video
+    videoRef.current.currentTime = 0; // Reset video time to 0
+
+    setIsPlaying(false); // Reset play state
+    setCurrentTime(0); // Reset current time
+    setDuration(videoRef.current.duration || 0); // Reset video duration
+    setIsOverlayVisible(true); // Show the overlay initially
+    setVolume(5); // Reset volume to default
+    setIsMuted(false); // Reset mute state
+
+    // Reset progress bar
+    if (progressBarRef.current) {
+      progressBarRef.current.value = '0'; // Reset progress bar to the left end
+    }
+  }
+}, [videoSrc]);
+
+// Update current time and progress bar as the video plays
+useEffect(() => {
+  const updateTime = () => {
+    if (videoRef.current) {
+      const time = videoRef.current.currentTime;
+      const duration = videoRef.current.duration;
+      const progressPercentage = (time / duration) * 100; // Calculate the percentage
+
+      setCurrentTime(time); // Update the state for the current time
+      
+      if (progressBarRef.current && !isNaN(duration)) {
+        progressBarRef.current.value = progressPercentage.toString(); // Set progress bar value
+
+        // Create the gradient and apply to the progress bar
+        progressBarRef.current.style.background = `linear-gradient(90deg, blue ${progressPercentage}%, purple ${progressPercentage}%, #555 ${progressPercentage}%)`;
+      }
+    }
+  };
+
+  if (videoRef.current) {
+    videoRef.current.addEventListener('timeupdate', updateTime);
+  }
+
+  return () => {
+    if (videoRef.current) {
+      videoRef.current.removeEventListener('timeupdate', updateTime);
+    }
+  };
+}, []);
+
+
 
   // Handle full-screen toggle
   const toggleFullScreen = () => {
@@ -109,6 +162,11 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
     }
   };
 
+  // Handle Chatbox Toggle
+  const toggleChat = () => {
+    setIsChatVisible(!isChatVisible); // Toggle Chatbox visibility
+  }
+
   // Handle progress bar drag
   const handleProgressBarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (videoRef.current) {
@@ -117,12 +175,31 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
     }
   };
 
-  // Format time to mm:ss
+  // Format time to mm:ss, and handle NaN duration
   const formatTime = (time: number) => {
+    if (isNaN(time)) return "0:00";
     const minutes = Math.floor(time / 60);
     const seconds = Math.floor(time % 60);
     return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
   };
+
+  useEffect(() => {
+    if (videoRef.current) {
+      const handleLoadedMetadata = () => {
+        if (videoRef.current) {
+          setDuration(videoRef.current.duration); // Set the video duration when metadata is loaded
+        }
+      };
+
+      videoRef.current.addEventListener('loadedmetadata', handleLoadedMetadata);
+      
+      return () => {
+        if (videoRef.current) {
+          videoRef.current.removeEventListener('loadedmetadata', handleLoadedMetadata);
+        }
+      };
+    }
+  }, [videoSrc]);
 
   // Add a listener to track full-screen changes
   useEffect(() => {
@@ -146,12 +223,12 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
         const cursorY = e.clientY - rect.top; // Get Y position relative to the player
 
         // Show the overlay only if the cursor is above a certain height
-        if (cursorY < rect.height * 0.6) {
+        if (cursorY < rect.height * 0.6) { // Tracks activity of the top 60% of video player
           setIsOverlayVisible(true);
           clearTimeout(timer);
           timer = setTimeout(() => {
             setIsOverlayVisible(false);
-          }, 2000); // Hide after 2 seconds of inactivity
+          }, 1000); // Hide after 1 second of inactivity
         }
       }
     };
@@ -167,7 +244,6 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       clearTimeout(timer);
     };
   }, []);
-
 
   return (
     <div ref={containerRef} className={`video-container relative w-full max-w-4xl mx-auto mt-12 ${isDarkMode ? 'dark' : ''}`}>
@@ -201,15 +277,21 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       </button>
 
       {/* Timestamp */}
-      <div className={`timestamp ${isOverlayVisible ? 'visible' : 'hidden'}`}>{formatTime(currentTime)}</div>
+      <div className={`timestamp ${isOverlayVisible ? 'visible' : 'hidden'}`}>
+        {formatTime(currentTime)} / {formatTime(duration)}
+      </div>
 
       {/* Fullscreen Toggle */}
       <button className={`fullscreen-button ${isOverlayVisible ? 'visible' : 'hidden'}`} onClick={toggleFullScreen}>
-        <img
-          src={isFullScreen ? "/playerIcons/ExitFullscreen.png" : "/playerIcons/Fullscreen.png"}
-          alt="Fullscreen Toggle"
-        />
+        <img src={isFullScreen ? "/playerIcons/ExitFullscreen.png" : "/playerIcons/Fullscreen.png"} alt="Fullscreen Toggle" />
       </button>
+    
+      {/* Chatbox Toggle */}
+      <div className={`chat-container ${isOverlayVisible ? 'visible' : 'hidden'}`}>
+        <button className="chat-button" onClick={toggleChat}>
+          <img src={isChatVisible ? "/playerIcons/ChatEnabled.png" : "/playerIcons/Chat_Disabled.png"} alt="Chat Toggle" />
+        </button>
+      </div>
 
       {/* Volume Button */}
       <div 
