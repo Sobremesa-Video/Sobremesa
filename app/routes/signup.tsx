@@ -6,6 +6,7 @@ import "app/styles/signupalt.css";
 import { Link } from '@remix-run/react';
 import Footer from "./footer";
 
+
 export const meta = () => {
   return [{ title: "Sobremesa" }];
 };
