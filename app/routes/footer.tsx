@@ -1,12 +1,7 @@
 import React from 'react';
 import { Link } from '@remix-run/react';
 import './footerCSS.css'; // Import the CSS file for styling
-<<<<<<< Updated upstream
-=======
 
-
-
->>>>>>> Stashed changes
 
 export default function Footer() {
   return (
