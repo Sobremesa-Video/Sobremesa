@@ -128,7 +128,7 @@ useEffect(() => {
         progressBarRef.current.value = progressPercentage.toString(); // Set progress bar value
 
         // Create the gradient and apply to the progress bar
-        progressBarRef.current.style.background = `linear-gradient(90deg, blue ${progressPercentage}%, purple ${progressPercentage}%, #555 ${progressPercentage}%)`;
+        progressBarRef.current.style.background = `linear-gradient(90deg, blue ${progressPercentage}%, purple ${progressPercentage}%)`;
       }
     }
   };
