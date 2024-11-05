@@ -15,17 +15,18 @@ export default function Footer() {
             src="app/assets/logo/sobremesa.svg"
             
           />
-          <h3 className="footer-title">SOBREMESA</h3>
+          <h3 className="footer-title"><Link to="/">SOBREMESA</Link></h3>
         </div>
 
         {/* Footer Icons */}
         <div className="footer-icons">
           <div className="icon-wrapper">
+            <Link to="/faq">
             <img
               className="icon"
               alt="Help Icon"
               src="app/assets/footericons/Help.png"
-            />
+            /></Link>
           </div>
           <div className="icon-wrapper">
             <img
