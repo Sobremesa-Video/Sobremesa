@@ -61,14 +61,16 @@ export default function MainPage() {
       {/* Main Content Area */}
       <div className="flex flex-1 px-4 mt-8 space-x-8">
         {/* Video Player and Chat Section */}
-        <div className="flex-1 flex flex-col space-y-4">
+        <div className="flex-1 flex flex-col items-center">
           {/* Video Player */}
           {selectedVideo && <VideoPlayer videoSrc={selectedVideo} isDarkMode={isDarkMode} />}
           
           {/* Chatbox */}
           {isChatVisible && (
-            <div className="chatbox w-full h-64 bg-gray-800 text-white p-4 rounded-lg">
-              <p>Chat is active</p>
+            <div className="w-full max-w-3xl mt-4 border-t border-gray-300 pt-4 flex justify-center">
+              <div className="chatbox w-full h-64 bg-gray-800 text-white p-4">
+                <p>Chat is active</p>
+              </div>
             </div>
           )}
         </div>
@@ -76,7 +78,7 @@ export default function MainPage() {
         {/* Available Videos Section */}
         <div className="w-1/3">
           <h2 className="text-2xl font-bold mb-4">Available Videos:</h2>
-          <div className="grid grid-cols-1 gap-4">
+          <div className="grid grid-cols-1 gap-4 h-96 overflow-y-scroll border border-gray-300 rounded-lg p-4">
             {videoFiles.map((video: string, index: number) => (
               <div key={index} className="flex flex-col items-center space-y-2">
                 <video
