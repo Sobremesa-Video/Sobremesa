@@ -5,6 +5,7 @@ import VideoPlayer from '~/components/videoPlayer';
 import fs from 'fs';
 import path from 'path';
 import Chat from "~/components/chat";
+import "~/components/main.css";
 
 // Define the type of the loader data
 type LoaderData = {
@@ -78,7 +79,7 @@ export default function MainPage() {
         {/* Available Videos Section */}
         <div className="w-1/3">
           <h2 className="text-2xl font-bold mb-4">Available Videos:</h2>
-          <div className="grid grid-cols-1 gap-4 h-96 overflow-y-scroll border border-gray-300 rounded-lg p-4">
+          <div className="grid grid-cols-1 gap-4 h-[500px] overflow-y-scroll border border-gray-300 rounded-lg p-4">
             {videoFiles.map((video: string, index: number) => (
               <div key={index} className="flex flex-col items-center space-y-2">
                 <video
