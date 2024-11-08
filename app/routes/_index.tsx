@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import type { MetaFunction } from "@remix-run/node";
-import "app\\assets\\logo\\sobremesa.svg";
+import "app/assets/logo/sobremesa.svg";
 import "app/styles/default.css";
 import WelcomeCenter from "~/components/welcomeCenter";
 import AccountCenter from "~/components/accountCenter";

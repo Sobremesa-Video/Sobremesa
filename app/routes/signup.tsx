@@ -4,6 +4,7 @@
 
 import "app/styles/signupalt.css";
 import { Link } from '@remix-run/react';
+
 import Footer from "../components/footer";
 
 

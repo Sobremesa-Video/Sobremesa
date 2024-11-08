@@ -19,86 +19,87 @@ export const meta: MetaFunction = () => {
 
 // Loader function to read video files
 export const loader: LoaderFunction = async () => {
-  const mediaPath = path.resolve('public', 'media'); // Loads videos in public -> media
+  const mediaPath = path.resolve('public', 'media');
   const files = fs.readdirSync(mediaPath);
-
-  // Filter for video files with '.mp4' extension
   const videoFiles = files.filter(file => file.endsWith('.mp4'));
-  
-  // Return the video files to the loader
   return { videoFiles };
 };
 
 export default function MainPage() {
-  // Use the loader data and provide the correct type
-  const { videoFiles } = useLoaderData<LoaderData>(); // Explicitly define the type
-  
+  const { videoFiles } = useLoaderData<LoaderData>();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isChatVisible, setIsChatVisible] = useState(false); // State for chatbox visibility
+  const [isChatVisible, setIsChatVisible] = useState(false);
 
-  // Handle video selection
   const handleVideoClick = (video: string) => {
     setSelectedVideo(`/media/${video}`);
   };
 
-  // Toggle dark/light mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
   };
 
-  // Apply dark or light mode by setting class on body
   useEffect(() => {
     document.body.classList.toggle('dark-mode', isDarkMode);
   }, [isDarkMode]);
 
   return (
-    <div className={`flex flex-col justify-start items-center min-h-screen pt-12 transition-colors ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
-      {/* Title */}
-      <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 drop-shadow-lg mb-8 mt-4">
-        Welcome to Sobremesa
-      </h1>
+    <div className={`flex flex-col min-h-screen transition-colors ${isDarkMode ? 'bg-black text-white' : 'bg-white text-black'}`}>
+      {/* Header Section */}
+      <header className="flex justify-between items-center w-full p-4">
+        <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+          Sobremesa
+        </h1>
+        <button
+          onClick={toggleDarkMode}
+          className="bg-gray-800 text-white py-2 px-4 rounded-full hover:bg-gray-700 transition-colors"
+        >
+          Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
+        </button>
+      </header>
 
-      {/* Dark Mode Toggle */}
-      <button 
-        onClick={toggleDarkMode} 
-        className="bg-gray-800 text-white py-2 px-4 rounded-full mb-4 hover:bg-gray-700 transition-colors"
-      >
-        Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
-      </button>
-
-      {/* Video Player */}
-      {selectedVideo && <VideoPlayer videoSrc={selectedVideo} isDarkMode={isDarkMode} />}
-      
-      {/* Video Selection */}
-      <div className="mb-4">
-        <h2 className="text-3xl font-bold mb-4">Available Videos:</h2>
-        <div className="grid grid-cols-3 gap-4">
-          {videoFiles.map((video: string, index: number) => (
-            <div key={index} className="flex flex-col items-center space-y-2">
-              <video
-                width="200"
-                height="120"
-                className="cursor-pointer"
-                onClick={() => handleVideoClick(video)}
-                muted
-              >
-                <source src={`/media/${video}`} type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
-              <span className="text-lg">{video.replace('.mp4', '')}</span>
+      {/* Main Content Area */}
+      <div className="flex flex-1 px-4 mt-8 space-x-8">
+        {/* Video Player and Chat Section */}
+        <div className="flex-1 flex flex-col items-center">
+          {/* Video Player */}
+          {selectedVideo && <VideoPlayer videoSrc={selectedVideo} isDarkMode={isDarkMode} />}
+          
+          {/* Chatbox */}
+          {isChatVisible && (
+            <div className="w-full max-w-3xl mt-4 border-t border-gray-300 pt-4 flex justify-center">
+              <div className="chatbox w-full h-64 bg-gray-800 text-white p-4">
+                <p>Chat is active</p>
+              </div>
             </div>
-          ))}
+          )}
+        </div>
+
+        {/* Available Videos Section */}
+        <div className="w-1/3">
+          <h2 className="text-2xl font-bold mb-4">Available Videos:</h2>
+          <div className="grid grid-cols-1 gap-4 h-96 overflow-y-scroll border border-gray-300 rounded-lg p-4">
+            {videoFiles.map((video: string, index: number) => (
+              <div key={index} className="flex flex-col items-center space-y-2">
+                <video
+                  width="200"
+                  height="120"
+                  className="cursor-pointer"
+                  onClick={() => handleVideoClick(video)}
+                  muted
+                >
+                  <source src={`/media/${video}`} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <span className="text-lg">{video.replace('.mp4', '')}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-      
-      {isChatVisible && (
-      <div className="chatbox absolute bottom-0 right-0 w-1/3 h-1/3 bg-transparent border border-gray-500">
-      {/* Chatbox content */}
-      <p className="text-white">Chat is active</p>
-      </div>
-    )}
-    <Chat />
+
+      {/* Hidden Chat Component (for handling state and events) */}
+      <Chat />
     </div>
   );
 }

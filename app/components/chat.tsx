@@ -2,10 +2,29 @@ import { useState, useRef, useEffect } from "react";
 import "./chat.css";
 
 export default function Chat() {
+    const [socket, setSocket] = useState<WebSocket | null>(null);
     const [chatInput, setChatInput] = useState<string>(''); // Input field for chat
     const [messages, setMessages] = useState<string[]>([]); // Messages sent in the chat
     const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true); // Track if auto-scroll is enabled
     const messageContainerRef = useRef<HTMLUListElement>(null);
+
+
+    function constructSocket() {
+        const newSocket = new WebSocket("ws://localhost:8080/ws");
+    
+        newSocket.addEventListener("message", (event) => {
+          try {
+            const data = JSON.parse(event.data);
+            if (data.dataType == "NAME") {
+              console.log("Username = " + data.data);
+            }
+          } catch (error) {
+            handleExternalMessage(event.data)
+          }
+        });
+    
+        setSocket(newSocket)
+      }
 
     const handleSendMessage = () => {
         if (chatInput.trim() !== '') {
@@ -13,6 +32,10 @@ export default function Chat() {
             setChatInput(''); // Clear input after sending
         }
     };
+
+    const handleExternalMessage = (new_val:string) => {
+        setMessages((prevMessages) => [...prevMessages, new_val]);
+    }
 
     // Handle Enter key press in the chat input
     const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -35,6 +58,16 @@ export default function Chat() {
             setIsAutoScroll(isAtBottom);
         }
     };
+
+    // Function to run when the chat is loaded
+    const onChatLoad = () => {
+        constructSocket(); // Connect to the WebSocket server
+        // Add any other logic you want to run when the chat loads
+    };
+
+    useEffect(() => {
+        onChatLoad();
+    }, []); // Empty dependency array ensures this runs only once when the component mounts
 
     return (
         <div className="chat">
