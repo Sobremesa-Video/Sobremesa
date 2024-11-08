@@ -159,6 +159,16 @@
   border-radius: 0.5rem; /* Rounded corners */
 }
 
+.volume-bar::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: -6px;
+  height: 16px;
+}
+
 .volume-bar::-webkit-slider-thumb {
   appearance: none;
   width: 12px;
