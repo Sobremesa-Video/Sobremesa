@@ -2,6 +2,7 @@ package video
 
 import (
 	"errors"
+	"fmt"
 	"github.com/pion/webrtc/v4"
 	"github.com/pion/webrtc/v4/pkg/media"
 	"github.com/pion/webrtc/v4/pkg/media/ivfreader"
@@ -16,12 +17,50 @@ type Stream struct {
 	track     *webrtc.TrackLocalStaticSample
 }
 
-func getStream(trackName string) *Stream {
+func GetStream(trackName string) *Stream {
 	return &Stream{
 		trackName: trackName,
 		playing:   true,
-		track:     nil,
+		track:     createTrack(trackName),
 	}
+}
+
+func createTrack(path string) *webrtc.TrackLocalStaticSample {
+	_, err := os.Stat(path)
+	if os.IsNotExist(err) {
+		panic("File does not exist")
+	}
+
+	file, err := os.Open(path)
+	if err != nil {
+		panic(err)
+	}
+
+	_, header, err := ivfreader.NewWith(file)
+	if err != nil {
+		panic(err)
+	}
+
+	// Determine video codec
+	var trackCodec string
+	switch header.FourCC {
+	case "AV01":
+		trackCodec = webrtc.MimeTypeAV1
+	case "VP90":
+		trackCodec = webrtc.MimeTypeVP9
+	case "VP80":
+		trackCodec = webrtc.MimeTypeVP8
+	default:
+		panic(fmt.Sprintf("Unable to handle FourCC %s", header.FourCC))
+	}
+
+	// Create a video track
+	videoTrack, videoTrackErr := webrtc.NewTrackLocalStaticSample(webrtc.RTPCodecCapability{MimeType: trackCodec}, "video", "pion")
+	if videoTrackErr != nil {
+		panic(videoTrackErr)
+	}
+
+	return videoTrack
 }
 
 func (stream *Stream) StreamRoutine() {

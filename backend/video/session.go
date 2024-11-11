@@ -13,11 +13,14 @@ type Session struct {
 	Stream *Stream
 	Hub    *chat.ConnectionHub
 	DBConn *database.Client
+
+	Start chan bool
 }
 
 func (s *Session) Run(group *sync.WaitGroup) {
 	defer group.Done()
 	defer print("session done")
 	go s.Hub.ChatRoutine()
+
 	s.Stream.StreamRoutine()
 }
