@@ -52,5 +52,7 @@ if $exec
 
     ./$executable
 else
+  go env -m CGO_ENABLED=1
   go run main.go
+
 fi

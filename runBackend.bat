@@ -30,6 +30,7 @@ CD backend
 if %exec% == true (
     ./watchparty_windows.exe
 ) ELSE (
+    go env -m CGO_ENABLED=1
     go run main.go
 )
 
