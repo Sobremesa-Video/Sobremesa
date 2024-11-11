@@ -37,7 +37,7 @@ func main() {
 			createNewSession(w, r, sessionHub)
 		})
 
-		http.HandleFunc("/getStream", func(w http.ResponseWriter, r *http.Request) {
+		http.HandleFunc("/getStream/", func(w http.ResponseWriter, r *http.Request) {
 			getStream(w, r, sessionHub)
 		})
 
@@ -117,6 +117,8 @@ func getStream(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
 	offer := session.Stream.CreateClientConnection(bodyString)
 
 	_, err = w.Write([]byte(offer)) // Send the offer to the client
+
+	print("Offer is " + offer)
 	if err != nil {
 		return
 	}
