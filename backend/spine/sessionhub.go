@@ -31,9 +31,9 @@ func NewSessionHub() *SessionHub {
 
 func (h *SessionHub) NewSession(name string) *video.Session {
 	s := &video.Session{
-		ID:   int64(idCounter),
-		Name: name,
-		Path: "",
+		ID:     int64(idCounter),
+		Name:   name,
+		Stream: nil,
 
 		Hub:    chat.NewHub(),
 		DBConn: h.GetDBConn(),

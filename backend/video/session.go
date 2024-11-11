@@ -10,7 +10,7 @@ type Session struct {
 	ID   int64
 	Name string
 
-	Path   string // TODO figure out how this should work - stream or local filepath?
+	Stream *Stream
 	Hub    *chat.ConnectionHub
 	DBConn *database.Client
 }
@@ -18,5 +18,6 @@ type Session struct {
 func (s *Session) Run(group *sync.WaitGroup) {
 	defer group.Done()
 	defer print("session done")
-	s.Hub.Routine()
+	go s.Hub.ChatRoutine()
+	s.Stream.StreamRoutine()
 }
