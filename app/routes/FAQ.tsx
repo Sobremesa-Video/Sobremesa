@@ -1,10 +1,16 @@
 import React from 'react';
 import "app/styles/FAQ.css";
+import Footer from "../components/footer";
 
-export const FaqPage = (): JSX.Element => {
+export default function FaqPage() {
   return (
     <div className="FAQ-page">
+       <header className="headerr">
+          <img className="logo" src="app/assets/logo/sobremesa.svg" alt="Sobremesa Logo" />
+          <h2 className="header-title">Sobremesa</h2>
+        </header>
       <div className="div">
+       
         <div className="header">
           <h1 className="text-wrapper">How can we help?</h1>
           <input className="search-input" type="text" placeholder="Type your question:" />
@@ -30,6 +36,7 @@ export const FaqPage = (): JSX.Element => {
           <div className="question-mark" />
         </div>
       </div>
+      <Footer />    
     </div>
   );
 };
