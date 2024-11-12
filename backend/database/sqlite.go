@@ -1,6 +1,10 @@
 package database
 
-import "database/sql"
+import (
+	"database/sql"
+
+	_ "github.com/mattn/go-sqlite3"
+)
 
 type SQLiteClient struct {
 	conn *sql.DB
@@ -14,7 +18,12 @@ func GetSQLiteClient() *SQLiteClient {
 
 func (client *SQLiteClient) init() error {
 	var err error
+
 	client.conn, err = sql.Open("sqlite3", "main.db")
+	if err != nil {
+		return err
+	}
+	err = client.conn.Ping()
 
 	return err
 }
