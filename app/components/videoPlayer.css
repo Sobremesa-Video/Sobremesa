@@ -186,7 +186,7 @@
   right: 0;
   width: 100%;
   appearance: none;
-  background: linear-gradient(90deg, blue 0%, purple 100%);
+  background: linear-gradient(90deg, rgba(196, 0, 255, 0.3), rgba(59, 130, 246, 0.3));
   height: 5px;
   cursor: pointer;
   z-index: 10;

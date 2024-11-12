@@ -3,9 +3,12 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 0 10px;
+  padding: 20px 0;
   width: 50%;
   text-align: center;
+  position: relative;
+  left: 25%;
+  
 }
 
 .inputContainer {
@@ -26,19 +29,19 @@
   padding: 10px;
   border: none;
   background-color: transparent;
-  color: white;
+  color: grey;
   outline: none;
 }
 
 .messageContainer {
   margin-bottom: 0.5rem;
-  border-radius: 20rem;
+  border-radius: 0;
   justify-content: end;
   align-items:flex-start;
   height: 300px;
   width: 100%;
   overflow: scroll;
-  background: linear-gradient(to top, black, transparent);
+  background: grey;
 }
 
 .sendButton {
@@ -65,9 +68,9 @@
 .messageList .message {
     padding: 10px;
     margin: 5px 0;
-    border-radius: 10px;
+    border-radius: 0;
 }
 
 .message {
-    color: white;
+    color: black;
 }
