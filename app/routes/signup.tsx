@@ -40,7 +40,7 @@ export default function SignUpAlt() {
         </form>
         
       </div>
-      <Footer />
+    <Footer />
       
     </div>
     
