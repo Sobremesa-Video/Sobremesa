@@ -2,12 +2,14 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
+	"watchparty/database"
 	"watchparty/spine"
+
+	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -19,6 +21,25 @@ var upgrader = websocket.Upgrader{
 }
 
 func main() {
+	client := database.GetSQLiteClient()
+
+	// variable for Execute call
+	createTableStmt := ` 
+	CREATE TABLE IF NOT EXISTS users (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		username TEXT UNIQUE NOT NULL,
+		full_name TEXT NOT NULL,
+		email TEXT UNIQUE NOT NULL,
+		pass TEXT NOT NULL
+	);`
+
+	err := client.Execute(createTableStmt)
+	if err != nil {
+		log.Fatalf("Failed to create table: %v", err)
+	} else {
+		fmt.Println("Table created successfully.")
+	}
+
 	sessionHub := spine.NewSessionHub()
 
 	go func() {
