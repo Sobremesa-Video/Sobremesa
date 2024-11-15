@@ -1,0 +1,560 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+   .accessibility {
+    /* background-color: rgba(255, 255, 255, 1.0); */
+    /* display: flex; */
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    top:5%;
+  }
+  
+  .accessibility .div {
+    background-image: url("../assets/backgrounds/homedark.gif");
+    background-size: cover;
+
+    /* background-color: rgba(255, 255, 255, 1.0); */
+    /* height: 1080px; */
+    overflow: hidden;
+    /* position: relative; */
+    width: 100%;
+    height: auto;
+    min-height: 90vh;
+    /* margin-bottom: 1%; */
+
+  }
+  
+  .accessibility .group {
+    height: 200px;
+    left: -856px;
+    position: absolute;
+    top: -490px;
+    width: 131px;
+    /* padding-bottom: 50%; */
+
+  }
+  
+  .accessibility .overlap {
+    background-color: #63636391;
+    border-radius: 50px;
+    height: 629px;
+    left: 150px;
+    position: absolute;
+    /* top: 220px; */
+    width: 80.5%;
+
+  }
+  
+  .accessibility .functions {
+    height: 474px;
+    left: 91px;
+    position: relative;
+    top: 77px;
+    width: 50%;
+    padding-bottom: 30%;
+  }
+  
+  .accessibility .dark-theme {
+    height: 66px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 461px;
+  }
+  
+  .accessibility .overlap-group {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 10px;
+    height: 66px;
+    position: relative;
+    width: 459px;
+  }
+  
+  .accessibility .text-wrapper {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 24px;
+    left: 4px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    width: 244px;
+  }
+  
+  .accessibility .ellipse-wrapper {
+    background-color: #737c7d;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    height: 38px;
+    left: 371px;
+    position: absolute;
+    top: 14px;
+    width: 76px;
+  }
+  
+  .accessibility .ellipse {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 18.94px;
+    height: 38px;
+    left: -1px;
+    position: relative;
+    top: -1px;
+    width: 38px;
+  }
+  
+  .accessibility .text-wrapper-2 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 34px;
+    left: 121px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 114px;
+    width: 237px;
+  }
+  
+  .accessibility .overlap-2 {
+    background-image: url(../assets/accessibilityicons/rectangle-4193.svg);
+    background-size: 100% 100%;
+    height: 64px;
+    left: 9px;
+    position: absolute;
+    top: 264px;
+    width: 446px;
+  }
+  
+  .accessibility .frame {
+    height: 25px;
+    left: 40px;
+    position: absolute;
+    top: 22px;
+    width: 186px;
+  }
+  
+  .accessibility .text-wrapper-3 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 18px;
+    left: -5px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: -1px;
+    white-space: nowrap;
+    width: 112px;
+  }
+  
+  .accessibility .div-wrapper {
+    background-color: #737c7d;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    height: 37px;
+    left: 358px;
+    position: absolute;
+    top: 14px;
+    width: 74px;
+  }
+  
+  .accessibility .ellipse-2 {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 18.4px;
+    height: 37px;
+    left: -1px;
+    position: relative;
+    top: -1px;
+    width: 37px;
+  }
+  
+  .accessibility .overlap-3 {
+    background-image: url(../assets/accessibilityicons/rectangle-4193.svg);
+    background-size: 100% 100%;
+    height: 64px;
+    left: 6px;
+    position: absolute;
+    top: 410px;
+    width: 443px;
+  }
+  
+  .accessibility .text-wrapper-4 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 25px;
+    left: 6px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 20px;
+    width: 184px;
+  }
+  
+  .accessibility .group-2 {
+    background-color: #737c7d;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    height: 37px;
+    left: 355px;
+    position: absolute;
+    top: 14px;
+    width: 73px;
+  }
+  
+  .accessibility .ellipse-3 {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 18.33px;
+    height: 37px;
+    left: -1px;
+    position: relative;
+    top: -1px;
+    width: 37px;
+  }
+  
+  .accessibility .overlap-4 {
+    height: 45px;
+    left: 17px;
+    position: absolute;
+    top: 169px;
+    width: 441px;
+  }
+  
+  .accessibility .line {
+    height: 2px;
+    left: 0;
+    position: absolute;
+    top: 21px;
+    width: 441px;
+  }
+  
+  .accessibility .sun-duotone {
+    height: 45px;
+    left: 199px;
+    position: absolute;
+    top: 0;
+    width: 45px;
+  }
+  
+  .accessibility .ellipse-4 {
+    background-color: var(--duotone);
+    border: 1.2px solid;
+    border-color: #222222;
+    border-radius: 7.5px;
+    height: 15px;
+    left: 15px;
+    position: absolute;
+    top: 15px;
+    width: 15px;
+  }
+  
+  .accessibility .vector {
+    height: 5px;
+    left: 22px;
+    position: absolute;
+    top: 5px;
+    width: 1px;
+  }
+  
+  .accessibility .img {
+    height: 5px;
+    left: 22px;
+    position: absolute;
+    top: 35px;
+    width: 1px;
+  }
+  
+  .accessibility .vector-2 {
+    height: 4px;
+    left: 31px;
+    position: absolute;
+    top: 10px;
+    width: 4px;
+  }
+  
+  .accessibility .vector-3 {
+    height: 4px;
+    left: 10px;
+    position: absolute;
+    top: 31px;
+    width: 4px;
+  }
+  
+  .accessibility .vector-4 {
+    height: 1px;
+    left: 35px;
+    position: absolute;
+    top: 22px;
+    width: 5px;
+  }
+  
+  .accessibility .vector-5 {
+    height: 1px;
+    left: 5px;
+    position: absolute;
+    top: 22px;
+    width: 5px;
+  }
+  
+  .accessibility .vector-6 {
+    height: 4px;
+    left: 31px;
+    position: absolute;
+    top: 31px;
+    width: 4px;
+  }
+  
+  .accessibility .vector-7 {
+    height: 4px;
+    left: 10px;
+    position: absolute;
+    top: 10px;
+    width: 4px;
+  }
+  
+  .accessibility .overlap-5 {
+    background-image: url(../assets/accessibilityicons/rectangle-4193.svg);
+    background-size: 100% 100%;
+    height: 62px;
+    left: 587px;
+    position: absolute;
+    top: 266px;
+    width: 434px;
+
+    /* height: 64px;
+    left: 534px;
+    position: absolute;
+    top: 171px;
+    width: 561px; */
+  }
+  
+  .accessibility .text-wrapper-5 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 21px;
+    left: 2px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 20px;
+    white-space: nowrap;
+    width: 225px;
+  }
+  
+  .accessibility .group-3 {
+    background-color: #26ed06;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    height: 35px;
+    left: 350px;
+    position: absolute;
+    top: 13px;
+    width: 71px;
+  }
+  
+  .accessibility .ellipse-5 {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 17.63px;
+    height: 35px;
+    left: 34px;
+    position: relative;
+    top: -1px;
+    width: 35px;
+  }
+  
+  .accessibility .overlap-6 {
+    height: 64px;
+    left: 534px;
+    position: absolute;
+    top: 171px;
+    width: 561px;
+  }
+  
+  .accessibility .rectangle {
+    height: 64px;
+    left: 55px;
+    position: absolute;
+    top: 0;
+    width: 438px;
+  }
+  
+  .accessibility .text-wrapper-6 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 24px;
+    left: 311px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    width: 250px;
+  }
+  
+  .accessibility .text-wrapper-7 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 24px;
+    left: 0;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 23px;
+    width: 250px;
+  }
+  
+  .accessibility .text-wrapper-8 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 24px;
+    left: 161px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    width: 241px;
+  }
+  
+  .accessibility .line-2 {
+    height: 64px;
+    left: 193px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 1px;
+  }
+  
+  .accessibility .line-3 {
+    height: 64px;
+    left: 374px;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    width: 1px;
+  }
+  
+  .accessibility .text-wrapper-9 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 20px;
+    font-weight: 400;
+    height: 34px;
+    left: 725px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 122px;
+    width: 182px;
+  }
+  
+  .accessibility .overlap-7 {
+    background-image: url(../assets/accessibilityicons/rectangle-4193.svg);
+    background-size: 100% 100%;
+    height: 63px;
+    left: 587px;
+    position: absolute;
+    top: 0;
+    width: 434px;
+  }
+  
+  .accessibility .text-wrapper-10 {
+    color: #000000;
+    font-family: "Inter-Regular", Helvetica;
+    font-size: 18px;
+    font-weight: 400;
+    height: 23px;
+    left: 13px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    text-align: center;
+    top: 21px;
+    width: 256px;
+  }
+  
+  .accessibility .overlap-wrapper {
+    height: 36px;
+    left: 347px;
+    position: absolute;
+    top: 14px;
+    width: 73px;
+  }
+  
+  .accessibility .overlap-8 {
+    height: 36px;
+    position: relative;
+  }
+  
+  .accessibility .rectangle-2 {
+    background-color: #737c7d;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 50px;
+    height: 36px;
+    left: 1px;
+    position: absolute;
+    top: 0;
+    width: 72px;
+  }
+  
+  .accessibility .ellipse-6 {
+    background-color: #ffffff;
+    border: 1px solid;
+    border-color: #000000;
+    border-radius: 17.92px;
+    height: 36px;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 36px;
+  }
+  
+  .accessibility .text-wrapper-11 {
+    color: #ffffff;
+    font-family: "Comfortaa-Regular", Helvetica;
+    font-size: 50px;
+    font-weight: 400;
+    left: 600px;
+    letter-spacing: 0;
+    line-height: normal;
+    position: absolute;
+    /* width: 387px; */
+  }

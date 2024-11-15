@@ -29,11 +29,12 @@ export default function Footer() {
             /></Link>
           </div>
           <div className="icon-wrapper">
+            <Link to="/accessibility">
             <img
               className="icon"
               alt="Letter Icon"
               src="app/assets/footericons/Letter.png"
-            />
+            /></Link>
           </div>
           <div className="icon-wrapper">
             <img
