@@ -10,3 +10,12 @@ body {
     color-scheme: dark;
   }
 }
+
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
