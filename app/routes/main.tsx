@@ -69,8 +69,8 @@ export default function MainPage() {
           {selectedVideo && <VideoPlayer mediaStream={mediaStream} isDarkMode={isDarkMode} />}
 
           {/* Signaling controls for testing */}
-          <button onClick={createOffer} className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 hover:bg-blue-500 transition-colors"> Create Offer </button>
-          <textarea placeholder="Paste remote SDP here" className="w-full h-24 p-2 mt-4" onBlur={(e) => setRemoteDescription(e.target.value)}></textarea>
+          {/*<button onClick={createOffer} className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 hover:bg-blue-500 transition-colors"> Create Offer </button>*/}
+          {/*<textarea placeholder="Paste remote SDP here" className="w-full h-24 p-2 mt-4" onBlur={(e) => setRemoteDescription(e.target.value)}></textarea>*/}
           
           {/* Chatbox */}
           {isChatVisible && (
