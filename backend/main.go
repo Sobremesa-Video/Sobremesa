@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/gorilla/websocket"
+	"io"
 	"log"
 	"net/http"
 	"strconv"
@@ -34,6 +35,10 @@ func main() {
 
 		http.HandleFunc("/newSession", func(w http.ResponseWriter, r *http.Request) {
 			createNewSession(w, r, sessionHub)
+		})
+
+		http.HandleFunc("/getStream/", func(w http.ResponseWriter, r *http.Request) {
+			getStream(w, r, sessionHub)
 		})
 
 		fmt.Println("Server online")
@@ -83,4 +88,38 @@ func createNewSession(w http.ResponseWriter, r *http.Request, h *spine.SessionHu
 	session := h.NewSession(r.Header.Get("Session-Name"))
 
 	_, _ = w.Write([]byte(fmt.Sprint(session.ID)))
+}
+
+func getStream(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
+	var id int
+	pathElements := strings.Split(r.URL.Path, "/")
+	if len(pathElements) < 3 {
+		id = 0
+	} else {
+		id, _ = strconv.Atoi(pathElements[2])
+	}
+
+	session, err := h.GetSession(id)
+
+	if err != nil {
+		log.Println(err)
+	}
+
+	body, err := io.ReadAll(r.Body)
+	if err != nil {
+		http.Error(w, "Error reading request body", http.StatusInternalServerError)
+		return
+	}
+	defer r.Body.Close()
+
+	bodyString := string(body)
+
+	offer := session.Stream.CreateClientConnection(bodyString)
+
+	_, err = w.Write([]byte(offer)) // Send the offer to the client
+
+	print("Offer is " + offer)
+	if err != nil {
+		return
+	}
 }
