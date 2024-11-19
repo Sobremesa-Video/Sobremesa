@@ -1,0 +1,101 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-image: url("../assets/backgrounds/homedark.gif");
+  }
+  
+  .contact-container {
+    text-align: center;
+    background: #ffffff;
+    padding: 20px ;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 50px auto;
+    margin-bottom: 1%;
+  }
+  .title{
+    color: white;
+    text-align: center;
+    font-size: 290%;
+    margin-top:2%;
+    letter-spacing: 4px;
+
+  }
+  
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: black;
+  }
+  
+  /* Rows and Columns */
+  .form-row {
+    display: flex;
+    gap: 20px;
+
+  }
+
+  
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-group label {
+    margin-bottom: 8px;
+    font-weight: bold;
+    text-align: left;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    color: white;
+  }
+  
+  /* Full-width textarea */
+  .form-group.full-width {
+    flex: 1;
+    color: #0056b3;
+  }
+  
+  /* Submit Button */
+  .submit-button {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .submit-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .headerr {
+    display: flex;
+    align-items: center;
+    /* position: absolute; */
+    /* top: 20px; */
+    left: 20px;
+  }
+  .logo {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+  }
+  
+  .header-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 4px;
+  }
