@@ -88,7 +88,7 @@ export default function VideoPlayer({ mediaStream, isDarkMode }: VideoPlayerProp
       setVolume(5); // Reset volume to default
       setIsMuted(false); // Reset mute state
     }
-  }, [videoSrc]);
+  }, []);
 
   // Reset player UI and states when a new video is selected
 useEffect(() => {
@@ -108,7 +108,7 @@ useEffect(() => {
       progressBarRef.current.value = '0'; // Reset progress bar to the left end
     }
   }
-}, [videoSrc]);
+}, []);
 
 // Update current time and progress bar as the video plays
 useEffect(() => {
@@ -195,7 +195,7 @@ useEffect(() => {
         }
       };
     }
-  }, [videoSrc]);
+  }, []);
 
   // Add a listener to track full-screen changes
   useEffect(() => {
@@ -244,7 +244,7 @@ useEffect(() => {
   return (
     <div ref={containerRef} className={`video-container relative w-full max-w-4xl mx-auto mt-12 ${isDarkMode ? 'dark' : ''}`}>
       {/* Video Element */}
-      <video ref={videoRef} className="video-player" src={videoSrc} />
+      <video ref={videoRef} className="video-player" />
 
       {/* Draggable Progress Bar */}
       <input
