@@ -29,7 +29,7 @@ export default function Footer() {
             /></Link>
           </div>
           <div className="icon-wrapper">
-            <Link to="/accessibility">
+            <Link to="/contacts">
             <img
               className="icon"
               alt="Letter Icon"
@@ -37,11 +37,12 @@ export default function Footer() {
             /></Link>
           </div>
           <div className="icon-wrapper">
+          <Link to="/accessibility">
             <img
               className="icon"
               alt="Accessibility Icon"
               src="app/assets/footericons/accessibility.png"
-            />
+            /></Link>
           </div>
         </div>
       </div>
