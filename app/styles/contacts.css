@@ -6,7 +6,7 @@ body {
   
   .contact-container {
     text-align: center;
-    background: #ffffff;
+    background: url("../assets/textures/darkglass.svg");
     padding: 20px ;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -27,7 +27,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    color: black;
+    color: rgb(255, 255, 255);
   }
   
   /* Rows and Columns */
@@ -52,7 +52,7 @@ body {
   
   .form-group input,
   .form-group textarea {
-    border: 1px solid black;
+    border: 1px solid rgb(176, 173, 173);
     padding: 10px;
     font-size: 16px;
     border-radius: 5px;
