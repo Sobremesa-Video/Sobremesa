@@ -2,12 +2,13 @@ package main
 
 import (
 	"fmt"
-	"github.com/gorilla/websocket"
 	"log"
 	"net/http"
 	"strconv"
 	"strings"
 	"watchparty/spine"
+
+	"github.com/gorilla/websocket"
 )
 
 var upgrader = websocket.Upgrader{
@@ -33,6 +34,7 @@ func main() {
 		})
 
 		http.HandleFunc("/newSession", func(w http.ResponseWriter, r *http.Request) {
+			fmt.Println("got request")
 			createNewSession(w, r, sessionHub)
 		})
 
@@ -81,6 +83,6 @@ func serveWebSocket(w http.ResponseWriter, r *http.Request, h *spine.SessionHub)
 
 func createNewSession(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
 	session := h.NewSession(r.Header.Get("Session-Name"))
-
+	fmt.Println(session.ID)
 	_, _ = w.Write([]byte(fmt.Sprint(session.ID)))
 }

@@ -40,6 +40,32 @@ export default function MainPage() {
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isChatVisible, setIsChatVisible] = useState(false); // State for chatbox visibility
+  const [sessionID, setSessionID] = useState<string | null>(null);
+
+  //Function that creates a new Session when button is pressed
+  const handleCreateSession = async () => {
+    try {
+    const response = await fetch("http://localhost:8080/newSession", {
+      method: "POST",
+      headers: {
+        "Session-Name": "New Session",
+      },
+      //mode: "no-cors"
+    });
+    if (response.ok) {
+      const newSessionID = await response.text();
+      setSessionID(newSessionID);
+      console.log(newSessionID)
+      } else {
+        console.log(response.ok)
+        console.log(response)
+        console.error("Failed to create session");
+      }
+    } catch (error) {
+      console.error("Error creating session:", error);
+    }
+
+  };
 
   // Handle video selection
   const handleVideoClick = (video: string) => {
@@ -104,6 +130,12 @@ export default function MainPage() {
       <p className="text-white">Chat is active</p>
       </div>
     )}
+    <button
+      onClick={handleCreateSession}
+      className="bg-blue-500 text-white py-2 px-4 rounded-full mt-4 hover:bg-blue-700 transition-colors"
+    >
+      Create New Session
+    </button>
     <Chat />
     </div>
   );
