@@ -34,6 +34,13 @@ func main() {
 		})
 
 		http.HandleFunc("/newSession", func(w http.ResponseWriter, r *http.Request) {
+			w.Header().Set("Access-Control-Allow-Origin", "*")             // Allows requests from any origin
+			w.Header().Set("Access-Control-Allow-Headers", "Session-Name") // Allow specific headers
+			if r.Method == http.MethodOptions {                            // Handle preflight request
+				w.WriteHeader(http.StatusOK)
+				return
+			}
+
 			fmt.Println("got request")
 			createNewSession(w, r, sessionHub)
 		})

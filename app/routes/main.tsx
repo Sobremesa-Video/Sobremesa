@@ -46,16 +46,14 @@ export default function MainPage() {
   const handleCreateSession = async () => {
     try {
     const response = await fetch("http://localhost:8080/newSession", {
-      method: "POST",
       headers: {
         "Session-Name": "New Session",
       },
-      //mode: "no-cors"
     });
     if (response.ok) {
       const newSessionID = await response.text();
       setSessionID(newSessionID);
-      console.log(newSessionID)
+      console.log("ID: "+newSessionID)
       } else {
         console.log(response.ok)
         console.log(response)
