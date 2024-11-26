@@ -1,14 +1,20 @@
 import { useState, useRef, useEffect } from "react";
 import "./chat.css";
 
-export default function Chat() {
+//Allow for the session ID to be passed into this component
+type ChatProps = {
+    sessionID: string;
+};
+
+//Added an argument to the Chat component
+export default function Chat({ sessionID }: ChatProps) {
     const [socket, setSocket] = useState<WebSocket | null>(null);
     const [chatInput, setChatInput] = useState<string>(''); // Input field for chat
     const [messages, setMessages] = useState<string[]>([]); // Messages sent in the chat
     const [isAutoScroll, setIsAutoScroll] = useState<boolean>(true); // Track if auto-scroll is enabled
     const messageContainerRef = useRef<HTMLUListElement>(null);
 
-
+//construct the web socket based on what the sessionID is
     function constructSocket(sessionID: string) {
         const newSocket = new WebSocket(`ws://localhost:8080/ws/${sessionID}`);
     
@@ -61,7 +67,8 @@ export default function Chat() {
 
     // Function to run when the chat is loaded
     const onChatLoad = () => {
-        constructSocket(""); // Connect to the WebSocket server
+        //use sessionID to construct socket
+        constructSocket(sessionID); // Connect to the WebSocket server
         // Add any other logic you want to run when the chat loads
     };
 

@@ -136,7 +136,8 @@ export default function MainPage() {
     >
       Create New Session
     </button>
-    <Chat />
+    {/* Pass in the sessionID to Chat Component */}
+    <Chat sessionID={sessionID||""}/>
     </div>
   );
 }
