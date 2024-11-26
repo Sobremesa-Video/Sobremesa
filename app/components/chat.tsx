@@ -9,8 +9,8 @@ export default function Chat() {
     const messageContainerRef = useRef<HTMLUListElement>(null);
 
 
-    function constructSocket() {
-        const newSocket = new WebSocket("ws://localhost:8080/ws");
+    function constructSocket(sessionID: string) {
+        const newSocket = new WebSocket(`ws://localhost:8080/ws/${sessionID}`);
     
         newSocket.addEventListener("message", (event) => {
           try {
@@ -61,7 +61,7 @@ export default function Chat() {
 
     // Function to run when the chat is loaded
     const onChatLoad = () => {
-        constructSocket(); // Connect to the WebSocket server
+        constructSocket(""); // Connect to the WebSocket server
         // Add any other logic you want to run when the chat loads
     };
 

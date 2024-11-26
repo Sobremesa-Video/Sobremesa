@@ -45,6 +45,7 @@ export default function MainPage() {
   //Function that creates a new Session when button is pressed
   const handleCreateSession = async () => {
     try {
+    //Send request to get sessionID
     const response = await fetch("http://localhost:8080/newSession", {
       headers: {
         "Session-Name": "New Session",
@@ -52,6 +53,7 @@ export default function MainPage() {
     });
     if (response.ok) {
       const newSessionID = await response.text();
+      //Update the sessionID
       setSessionID(newSessionID);
       console.log("ID: "+newSessionID)
       } else {
