@@ -23,7 +23,7 @@ func (stream *Stream) CreateClientConnection(offer string) string {
 		panic(err)
 	}
 
-	rtpSender, err := peerConnection.AddTrack(stream.track)
+	videoSender, err := peerConnection.AddTrack(stream.videoTrack)
 	if err != nil {
 		panic(err)
 	}
@@ -31,7 +31,21 @@ func (stream *Stream) CreateClientConnection(offer string) string {
 	go func() {
 		rtcpBuf := make([]byte, 1500)
 		for {
-			if _, _, rtcpErr := rtpSender.Read(rtcpBuf); rtcpErr != nil {
+			if _, _, rtcpErr := videoSender.Read(rtcpBuf); rtcpErr != nil {
+				return
+			}
+		}
+	}()
+
+	audioSender, err := peerConnection.AddTrack(stream.audioTrack)
+	if err != nil {
+		panic(err)
+	}
+
+	go func() {
+		rtcpBuf := make([]byte, 1500)
+		for {
+			if _, _, rtcpErr := audioSender.Read(rtcpBuf); rtcpErr != nil {
 				return
 			}
 		}

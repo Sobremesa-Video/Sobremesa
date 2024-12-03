@@ -33,7 +33,7 @@ func (h *SessionHub) NewSession(name string) *video.Session {
 	s := &video.Session{
 		ID:     int64(idCounter),
 		Name:   name,
-		Stream: video.GetStream("rat.ivf"), // TODO UPLOADING
+		Stream: video.GetStream("ds"), // TODO UPLOADING
 
 		Hub:    chat.NewHub(),
 		DBConn: h.GetDBConn(),

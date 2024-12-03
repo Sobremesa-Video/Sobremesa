@@ -1,1 +1,3 @@
-IMPORTANT: having these binaries seriously makes the project bigger. Once we've got a testing server, get rid of them.
+- .ogg audio streaming
+- Eventually, switch to .h264 for integrated audio and video
+  - Problem encountered: framerate
