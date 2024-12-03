@@ -101,9 +101,6 @@ const oggPageDuration = time.Millisecond * 20
 
 func (stream *Stream) StreamRoutine() {
 
-	videoReady := make(chan bool)
-	audioReady := make(chan bool)
-
 	// Open a IVF vidFile and start reading using our IVFReader
 	vidFile, ivfErr := os.Open(stream.getVideoTrackName())
 	if ivfErr != nil {
@@ -132,10 +129,6 @@ func (stream *Stream) StreamRoutine() {
 				}
 				return vidFile
 			})
-
-			videoReady <- true
-
-			<-audioReady
 
 			for ; true; <-videoTicker.C {
 				if stream.playing {
@@ -185,12 +178,6 @@ func (stream *Stream) StreamRoutine() {
 				}
 				return audioFile
 			})
-
-			go func() {
-				audioReady <- true
-			}()
-
-			<-videoReady
 
 			for ; true; <-ticker.C {
 

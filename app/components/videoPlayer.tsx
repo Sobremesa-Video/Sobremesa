@@ -29,6 +29,7 @@ export default function VideoPlayer({ mediaStream, isDarkMode }: VideoPlayerProp
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
+      fetch("http://localhost:8080/play")
     }
   };
 
