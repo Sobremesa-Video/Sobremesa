@@ -27,13 +27,13 @@ func main() {
 
 		//http.HandleFunc("/", handleWithCORS(ping, true))
 
-		http.HandleFunc("/ws", handleWithCORS(func(w http.ResponseWriter, r *http.Request) {
+		http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 			serveWebSocket(w, r, sessionHub)
-		}, false))
+		})
 
-		http.HandleFunc("/ws/", handleWithCORS(func(w http.ResponseWriter, r *http.Request) {
+		http.HandleFunc("/ws/", func(w http.ResponseWriter, r *http.Request) {
 			serveWebSocket(w, r, sessionHub)
-		}, false))
+		})
 
 		http.HandleFunc("/newSession", handleWithCORS(func(w http.ResponseWriter, r *http.Request) {
 			createNewSession(w, r, sessionHub)
@@ -43,9 +43,9 @@ func main() {
 			getStream(w, r, sessionHub)
 		}, false))
 
-		http.HandleFunc("/play", func(writer http.ResponseWriter, request *http.Request) {
+		http.HandleFunc("/play", handleWithCORS(func(writer http.ResponseWriter, request *http.Request) {
 			play(writer, request, sessionHub)
-		})
+		}, false))
 
 		fmt.Println("Server online")
 		err := http.ListenAndServe("localhost:8080", nil)
@@ -59,6 +59,7 @@ func main() {
 }
 
 func serveWebSocket(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
+
 	wsConn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		log.Println(err)
@@ -124,7 +125,6 @@ func getStream(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
 
 	_, err = w.Write([]byte(offer)) // Send the offer to the client
 
-	print("Offer is " + offer)
 	if err != nil {
 		return
 	}

@@ -172,14 +172,15 @@ func (stream *Stream) StreamRoutine() {
 		defer ticker.Stop()
 
 		for {
-			ogg.ResetReader(func(_ int64) io.Reader {
-				if _, err := audioFile.Seek(0, io.SeekStart); err != nil {
-					panic(err)
-				}
-				return audioFile
-			})
 
 			for ; true; <-ticker.C {
+
+				ogg.ResetReader(func(_ int64) io.Reader {
+					if _, err := audioFile.Seek(0, io.SeekStart); err != nil {
+						panic(err)
+					}
+					return audioFile
+				})
 
 				if stream.playing {
 
@@ -202,6 +203,7 @@ func (stream *Stream) StreamRoutine() {
 					}
 				}
 			}
+
 		}
 	}()
 
