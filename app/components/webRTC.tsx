@@ -60,9 +60,14 @@ export default function useWebRTC() {
         }
 
         newPc.addTransceiver('video')
+
+        newPc.addTransceiver('audio', {
+          direction: 'sendrecv'
+        })
+
+
         newPc.createOffer()
             .then(d => newPc.setLocalDescription(d))
-
 
         newPc.ontrack = function (event) {
           setStream(event.streams[0]);

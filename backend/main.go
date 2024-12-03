@@ -43,6 +43,10 @@ func main() {
 			getStream(w, r, sessionHub)
 		}, false))
 
+		http.HandleFunc("/play", func(writer http.ResponseWriter, request *http.Request) {
+			play(writer, request, sessionHub)
+		})
+
 		fmt.Println("Server online")
 		err := http.ListenAndServe("localhost:8080", nil)
 		if err != nil {
@@ -131,6 +135,11 @@ func ping(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		return
 	}
+}
+
+func play(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
+	s, _ := h.GetSession(0)
+	s.Stream.TogglePlaying()
 }
 
 func handleWithCORS(handler http.HandlerFunc, okCode bool) http.HandlerFunc {
