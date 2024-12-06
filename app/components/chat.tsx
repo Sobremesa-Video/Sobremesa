@@ -22,13 +22,15 @@ export default function Chat() {
             handleExternalMessage(event.data)
           }
         });
+
     
         setSocket(newSocket)
       }
 
     const handleSendMessage = () => {
         if (chatInput.trim() !== '') {
-            setMessages([...messages, chatInput]);
+            // setMessages([...messages, chatInput]);
+            socket?.send(chatInput)
             setChatInput(''); // Clear input after sending
         }
     };

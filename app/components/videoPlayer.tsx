@@ -2,11 +2,11 @@ import React, { useRef, useState, useEffect } from 'react';
 import './videoPlayer.css';
 
 interface VideoPlayerProps {
-  videoSrc: string;
+  mediaStream?: MediaStream
   isDarkMode: boolean;
 }
 
-export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) {
+export default function VideoPlayer({ mediaStream, isDarkMode }: VideoPlayerProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null); // Reference to the container
   const progressBarRef = useRef<HTMLInputElement>(null);
@@ -29,6 +29,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
         videoRef.current.play();
       }
       setIsPlaying(!isPlaying);
+      fetch("http://localhost:8080/play")
     }
   };
 
@@ -65,15 +66,11 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
   };
   // Reset progress bar and current time when a new video is loaded
   useEffect(() => {
-    if (videoRef.current) {
-      setCurrentTime(0);
-      setDuration(videoRef.current.duration || 0);
-
-      if (progressBarRef.current) {
-        progressBarRef.current.value = '0'; // Reset progress bar to the left end
-      }
+    if (videoRef.current && mediaStream) {
+      videoRef.current.srcObject = mediaStream; // Set the video source
+      videoRef.current.play().catch((err) => console.error("Failed to play stream: ", err)); // Start playing the video
     }
-  }, [videoSrc]);
+  }, [mediaStream]);
 
   // Reset player UI and states when a new video is selected
   useEffect(() => {
@@ -92,7 +89,7 @@ export default function VideoPlayer({ videoSrc, isDarkMode }: VideoPlayerProps) 
       setVolume(5); // Reset volume to default
       setIsMuted(false); // Reset mute state
     }
-  }, [videoSrc]);
+  }, []);
 
   // Reset player UI and states when a new video is selected
 useEffect(() => {
@@ -112,7 +109,7 @@ useEffect(() => {
       progressBarRef.current.value = '0'; // Reset progress bar to the left end
     }
   }
-}, [videoSrc]);
+}, []);
 
 // Update current time and progress bar as the video plays
 useEffect(() => {
@@ -199,7 +196,7 @@ useEffect(() => {
         }
       };
     }
-  }, [videoSrc]);
+  }, []);
 
   // Add a listener to track full-screen changes
   useEffect(() => {
@@ -248,7 +245,7 @@ useEffect(() => {
   return (
     <div ref={containerRef} className={`video-container relative w-full max-w-4xl mx-auto mt-12 ${isDarkMode ? 'dark' : ''}`}>
       {/* Video Element */}
-      <video ref={videoRef} className="video-player" src={videoSrc} />
+      <video ref={videoRef} className="video-player" />
 
       {/* Draggable Progress Bar */}
       <input

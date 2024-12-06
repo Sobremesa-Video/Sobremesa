@@ -1,0 +1,143 @@
+/* main.css */
+
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  /* Dark Mode */
+  body.dark-mode {
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+  }
+  
+  /* Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: linear-gradient(90deg, #3b82f6, #a855f7);
+    color: white;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+  
+  header button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  header button:hover {
+    background-color: #555;
+  }
+  
+  /* Main Content */
+  .main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  /* Video Section */
+  .video-player-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+  }
+  
+  .video-player-container video {
+    width: 100%;
+    border-radius: 8px;
+  }
+  
+  /* Video List */
+  .video-list {
+    width: 100%;
+    max-width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  
+  .video-list h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .video-list-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    transition: background-color 0.2s;
+  }
+  
+  .video-list-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .video-list-item video {
+    border-radius: 4px;
+  }
+  
+  .video-list-item span {
+    margin-top: 4px;
+    font-size: 1rem;
+  }
+  
+  /* Chat Box */
+  .chatbox {
+    width: 100%;
+    max-width: 800px;
+    height: 200px;
+    background-color: #222;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px;
+    overflow-y: auto;
+  }
+  
+  /* Utility Classes */
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .border {
+    border: 1px solid #ddd;
+  }
+  
+  .rounded {
+    border-radius: 8px;
+  }
+  
+  .m-4 {
+    margin: 16px;
+  }
+  
+  .p-4 {
+    padding: 16px;
+  }
+  

@@ -5,6 +5,8 @@ import VideoPlayer from '~/components/videoPlayer';
 import fs from 'fs';
 import path from 'path';
 import Chat from "~/components/chat";
+import "~/components/main.css";
+import useWebRTC from "~/components/webRTC";
 
 // Define the type of the loader data
 type LoaderData = {
@@ -26,6 +28,7 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function MainPage() {
+  const { mediaStream, createOffer, setRemoteDescription } = useWebRTC();
   const { videoFiles } = useLoaderData<LoaderData>();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -63,7 +66,11 @@ export default function MainPage() {
         {/* Video Player and Chat Section */}
         <div className="flex-1 flex flex-col items-center">
           {/* Video Player */}
-          {selectedVideo && <VideoPlayer videoSrc={selectedVideo} isDarkMode={isDarkMode} />}
+          {selectedVideo && <VideoPlayer mediaStream={mediaStream} isDarkMode={isDarkMode} />}
+
+          {/* Signaling controls for testing */}
+          {/*<button onClick={createOffer} className="bg-blue-600 text-white py-2 px-4 rounded-full mt-4 hover:bg-blue-500 transition-colors"> Create Offer </button>*/}
+          {/*<textarea placeholder="Paste remote SDP here" className="w-full h-24 p-2 mt-4" onBlur={(e) => setRemoteDescription(e.target.value)}></textarea>*/}
           
           {/* Chatbox */}
           {isChatVisible && (
@@ -78,7 +85,7 @@ export default function MainPage() {
         {/* Available Videos Section */}
         <div className="w-1/3">
           <h2 className="text-2xl font-bold mb-4">Available Videos:</h2>
-          <div className="grid grid-cols-1 gap-4 h-96 overflow-y-scroll border border-gray-300 rounded-lg p-4">
+          <div className="grid grid-cols-1 gap-4 h-[500px] overflow-y-scroll border border-gray-300 rounded-lg p-4">
             {videoFiles.map((video: string, index: number) => (
               <div key={index} className="flex flex-col items-center space-y-2">
                 <video

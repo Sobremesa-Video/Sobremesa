@@ -14,7 +14,7 @@ type ConnectionHub struct {
 	broadcast   chan []byte
 }
 
-func (hub *ConnectionHub) Routine() {
+func (hub *ConnectionHub) ChatRoutine() {
 	for {
 		select {
 		case conn := <-hub.newConn:
@@ -36,7 +36,6 @@ func (hub *ConnectionHub) Routine() {
 			}
 		}
 	}
-
 }
 
 func (hub *ConnectionHub) generateName() string {
