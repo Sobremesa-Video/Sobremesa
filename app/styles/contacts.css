@@ -1,7 +1,14 @@
 /* General Styles */
+
 body {
     font-family: Arial, sans-serif;
     background-image: url("../assets/backgrounds/homedark.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0; /* Ensure no default margin */
+    min-height: 100vh; /* Ensure it fills the screen */
   }
   
   .contact-container {
@@ -13,6 +20,7 @@ body {
     max-width: 600px;
     margin: 50px auto;
     margin-bottom: 1%;
+    
   }
   .title{
     color: white;
