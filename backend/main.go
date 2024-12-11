@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"watchparty/database"
@@ -208,6 +209,17 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode(SignupResponse{
 			Success: false,
 			Message: "Username must be at least 3 characters long",
+		})
+		return
+	}
+
+	var emailRegex = regexp.MustCompile(`^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`)
+
+	// Email validation
+	if !emailRegex.MatchString(req.Email) {
+		json.NewEncoder(w).Encode(SignupResponse{
+			Success: false,
+			Message: "Invalid email format",
 		})
 		return
 	}
