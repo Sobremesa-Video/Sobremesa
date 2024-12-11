@@ -4,6 +4,9 @@ import { redirect } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 import type { ActionFunction } from "@remix-run/node";
 
+
+import Footer from "~/components/footer";
+
 import "app/styles/forgetPW.css";
 
 
@@ -48,6 +51,9 @@ export default function Login() {
       </button>
     </form>
   </div>
+  <div className="fixed bottom-0 left-0 w-full bg-gray-800 text-white py-4 text-center">
+      <Footer />
+    </div>
 </div>
 
   );

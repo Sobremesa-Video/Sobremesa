@@ -23,7 +23,11 @@ export default function SignUpAlt() {
 
       {/* Form inside a rounded box */}
       <div className="form-box">
-        <h1 className="title">Create your account</h1>
+      <h2 className="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 text-center mb-8 leading-tight">
+
+        Create your account
+      
+      </h2>
         <form className="form">
           <input className="input" placeholder="Username" type="text" />
           <input className="input" placeholder="Full Name" type="text" />
