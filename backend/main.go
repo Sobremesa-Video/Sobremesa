@@ -124,14 +124,14 @@ type SignupResponse struct {
 
 func handleSignup(w http.ResponseWriter, r *http.Request) {
 	// Add CORS headers
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173")
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5175")
 	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
 	w.Header().Set("Access-Control-Allow-Credentials", "true")
 
 	// Handle preflight OPTIONS request
 	if r.Method == "OPTIONS" {
-		w.WriteHeader(http.StatusConflict) // supposed to return 409 for duplicates
+		w.WriteHeader(http.StatusOK) // Changed from StatusConflict to StatusOK
 		return
 	}
 
