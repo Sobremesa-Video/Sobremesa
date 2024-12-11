@@ -89,11 +89,7 @@
     width: 244px;
   }
   
-  .accessibility .ellipse-wrapper {
-    background-color: #737c7d;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius: 50px;
+  .accessibility .toggle-wrapper {
     height: 38px;
     left: 371px;
     position: absolute;
@@ -163,10 +159,6 @@
   }
   
   .accessibility .div-wrapper {
-    background-color: #737c7d;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius: 50px;
     height: 37px;
     left: 358px;
     position: absolute;
@@ -212,10 +204,6 @@
   }
   
   .accessibility .group-2 {
-    background-color: #737c7d;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius: 50px;
     height: 37px;
     left: 355px;
     position: absolute;
@@ -368,10 +356,6 @@
   }
   
   .accessibility .group-3 {
-    background-color: #26ed06;
-    border: 1px solid;
-    border-color: #000000;
-    border-radius: 50px;
     height: 35px;
     left: 350px;
     position: absolute;

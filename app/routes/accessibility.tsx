@@ -1,5 +1,8 @@
+//Accessibility Page with AccessibilityToggles Used
+
 import Footer from "../components/footer";
 import React from "react";
+import AccessibilityToggle from "~/components/AccessibilityToggle";
 import 'app/styles/accessibility.css';
 
 export default function Accessibility() {
@@ -13,9 +16,8 @@ export default function Accessibility() {
             <div className="dark-theme">
               <div className="overlap-group">
                 <div className="text-wrapper">Dark Theme</div>
-
-                <div className="ellipse-wrapper">
-                  <div className="ellipse" />
+                <div className="toggle-wrapper">
+                  <AccessibilityToggle></AccessibilityToggle>
                 </div>
               </div>
             </div>
@@ -28,7 +30,7 @@ export default function Accessibility() {
               </div>
 
               <div className="div-wrapper">
-                <div className="ellipse-2" />
+                <AccessibilityToggle></AccessibilityToggle>
               </div>
             </div>
 
@@ -36,7 +38,7 @@ export default function Accessibility() {
               <div className="text-wrapper-4">GrayScale</div>
 
               <div className="group-2">
-                <div className="ellipse-3" />
+                <AccessibilityToggle></AccessibilityToggle>
               </div>
             </div>
 
@@ -69,7 +71,7 @@ export default function Accessibility() {
                 Read Aloud</div>
 
               <div className="group-3">
-                <div className="ellipse-5" />
+                <AccessibilityToggle></AccessibilityToggle>
               </div>
             </div>
 
@@ -93,11 +95,7 @@ export default function Accessibility() {
               <div className="text-wrapper-10">Bigger Buttons</div>
 
               <div className="overlap-wrapper">
-                <div className="overlap-8">
-                  <div className="rectangle-2" />
-
-                  <div className="ellipse-6" />
-                </div>
+                  <AccessibilityToggle></AccessibilityToggle>
               </div>
             </div>
           </div>
