@@ -1,0 +1,33 @@
+/* Increase the size of the toggle container */
+.toggle-container {
+    width: 80px;  /* Increased size */
+    height: 40px;  /* Increased size */
+    background-color: #ccc;
+    border-radius: 30px;  /* Increased rounded corners */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  /* When toggle is ON, change the background to green */
+  .toggle-container.on {
+    background-color: #4caf50;
+  }
+  
+  /* Increase the size of the slider */
+  .toggle-slider {
+    width: 35px;  /* Increased size */
+    height: 35px;  /* Increased size */
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    transition: left 0.3s;
+  }
+  
+  /* Slider position when toggle is ON */
+  .toggle-slider.on {
+    left: 43px;  /* Increased the sliding distance */
+  }
+
