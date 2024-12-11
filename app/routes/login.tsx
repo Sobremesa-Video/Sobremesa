@@ -1,6 +1,10 @@
+//Login.tsx page
+
 import { redirect } from "@remix-run/node";
 import type { MetaFunction } from "@remix-run/node";
 import type { ActionFunction } from "@remix-run/node";
+
+import "app/styles/login.css";
 
 
 export const meta: MetaFunction = () => {
@@ -18,7 +22,9 @@ export let action: ActionFunction = async ({ request }) => {
 
 export default function Login() {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white dark:bg-gray-950">
+    <div className="background">
+    <div className="flex justify-center items-center min-h-screen">
+      
       <form method="post" className="bg-gray-100 dark:bg-gray-800 p-8 rounded-lg shadow-md w-80">
         <h2 className="text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600 text-center mb-6">
           Login
@@ -53,6 +59,7 @@ export default function Login() {
           Log In
         </button>
       </form>
+    </div>
     </div>
   );
 }
