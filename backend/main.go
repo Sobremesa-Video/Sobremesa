@@ -43,6 +43,25 @@ type LoginResponse struct {
 	Message string `json:"message"`
 }
 
+func enableCORS(next http.HandlerFunc) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		// Set CORS headers
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5175")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+		w.Header().Set("Access-Control-Allow-Credentials", "true")
+		w.Header().Set("Content-Type", "application/json")
+
+		// Handle preflight OPTIONS request
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		next(w, r)
+	}
+}
+
 func main() {
 	client := database.GetSQLiteClient()
 
@@ -77,8 +96,8 @@ func main() {
 			createNewSession(w, r, sessionHub)
 		})
 
-		http.HandleFunc("/signup", handleSignup)
-		http.HandleFunc("/login", handleLogin)
+		http.HandleFunc("/signup", enableCORS(handleSignup))
+		http.HandleFunc("/login", enableCORS(handleLogin))
 
 		fmt.Println("Server online")
 		err := http.ListenAndServe("localhost:8080", nil)
@@ -91,20 +110,6 @@ func main() {
 }
 
 func handleLogin(w http.ResponseWriter, r *http.Request) {
-	// Add CORS headers
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5175")
-	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("Access-Control-Allow-Credentials", "true")
-
-	// Handle preflight OPTIONS request
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(http.StatusOK)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-
 	// Only allow POST method
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
@@ -163,20 +168,6 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleSignup(w http.ResponseWriter, r *http.Request) {
-	// Add CORS headers
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5175")
-	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	w.Header().Set("Access-Control-Allow-Credentials", "true")
-
-	// Handle preflight OPTIONS request
-	if r.Method == "OPTIONS" {
-		w.WriteHeader(http.StatusOK)
-		return
-	}
-
-	w.Header().Set("Content-Type", "application/json")
-
 	// Only allow POST method
 	if r.Method != http.MethodPost {
 		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
