@@ -36,3 +36,7 @@ func (client *SQLiteClient) Execute(statement string, args ...any) error {
 func (client *SQLiteClient) Query(statement string, args ...any) (*sql.Rows, error) {
 	return client.conn.Query(statement, args...)
 }
+
+func (client *SQLiteClient) QueryRow(statement string, args ...any) *sql.Row {
+	return client.conn.QueryRow(statement, args...)
+}

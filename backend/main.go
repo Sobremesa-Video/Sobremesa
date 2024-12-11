@@ -21,10 +21,31 @@ var upgrader = websocket.Upgrader{
 	},
 }
 
+type SignupRequest struct {
+	Username string `json:"username"`
+	FullName string `json:"full_name"`
+	Email    string `json:"email"`
+	Pass     string `json:"pass"`
+}
+
+type SignupResponse struct {
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+}
+
+type LoginRequest struct {
+	Username string `json:"username"`
+	Pass     string `json:"pass"`
+}
+
+type LoginResponse struct {
+	Success bool   `json:"success"`
+	Message string `json:"message"`
+}
+
 func main() {
 	client := database.GetSQLiteClient()
 
-	// variable for Execute call
 	createTableStmt := ` 
 	CREATE TABLE IF NOT EXISTS users (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -44,8 +65,6 @@ func main() {
 	sessionHub := spine.NewSessionHub()
 
 	go func() {
-		// TODO eventually probably switch to a servemux
-
 		http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 			serveWebSocket(w, r, sessionHub)
 		})
@@ -59,67 +78,88 @@ func main() {
 		})
 
 		http.HandleFunc("/signup", handleSignup)
+		http.HandleFunc("/login", handleLogin)
 
 		fmt.Println("Server online")
 		err := http.ListenAndServe("localhost:8080", nil)
 		if err != nil {
 			log.Fatal("ListenAndServe: ", err)
 		}
-
 	}()
 
 	sessionHub.Run()
-
 }
 
-func serveWebSocket(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
-	wsConn, err := upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println(err)
+func handleLogin(w http.ResponseWriter, r *http.Request) {
+	// Add CORS headers
+	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5175")
+	w.Header().Set("Access-Control-Allow-Methods", "POST, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	w.Header().Set("Access-Control-Allow-Credentials", "true")
+
+	// Handle preflight OPTIONS request
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
 		return
 	}
 
-	var id int
-	pathElements := strings.Split(r.URL.Path, "/")
-	if len(pathElements) < 3 {
-		id = 0
-	} else {
-		id, _ = strconv.Atoi(pathElements[2])
-	}
+	w.Header().Set("Content-Type", "application/json")
 
-	session, err := h.GetSession(id)
-
-	if err != nil {
-		log.Println(err)
-		_ = wsConn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
-		_ = wsConn.Close()
+	// Only allow POST method
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
 
-	if session != nil {
-		chatConn := session.Hub.NewConn(wsConn)
-
-		go chatConn.ReadRoutine()
-		go chatConn.WriteRoutine()
+	// Decode request body
+	var req LoginRequest
+	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+		json.NewEncoder(w).Encode(LoginResponse{
+			Success: false,
+			Message: "Invalid request format",
+		})
+		return
 	}
-}
 
-func createNewSession(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
-	session := h.NewSession(r.Header.Get("Session-Name"))
+	// Basic validation
+	if req.Username == "" || req.Pass == "" {
+		json.NewEncoder(w).Encode(LoginResponse{
+			Success: false,
+			Message: "Username and password are required",
+		})
+		return
+	}
 
-	_, _ = w.Write([]byte(fmt.Sprint(session.ID)))
-}
+	// Get database client
+	client := database.GetSQLiteClient()
 
-type SignupRequest struct {
-	Username string `json:"username"`
-	FullName string `json:"full_name"`
-	Email    string `json:"email"`
-	Pass     string `json:"pass"`
-}
+	// Query user from database
+	var storedPass string
+	err := client.QueryRow("SELECT pass FROM users WHERE username = ?", req.Username).Scan(&storedPass)
+	if err != nil {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(LoginResponse{
+			Success: false,
+			Message: "Invalid username or password",
+		})
+		return
+	}
 
-type SignupResponse struct {
-	Success bool   `json:"success"`
-	Message string `json:"message"`
+	// Check password
+	if storedPass != req.Pass {
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(LoginResponse{
+			Success: false,
+			Message: "Invalid username or password",
+		})
+		return
+	}
+
+	// Return success response
+	json.NewEncoder(w).Encode(LoginResponse{
+		Success: true,
+		Message: "Login successful",
+	})
 }
 
 func handleSignup(w http.ResponseWriter, r *http.Request) {
@@ -131,7 +171,7 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 
 	// Handle preflight OPTIONS request
 	if r.Method == "OPTIONS" {
-		w.WriteHeader(http.StatusOK) // Changed from StatusConflict to StatusOK
+		w.WriteHeader(http.StatusOK)
 		return
 	}
 
@@ -202,4 +242,42 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 		Success: true,
 		Message: "Account created successfully",
 	})
+}
+
+func serveWebSocket(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
+	wsConn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+
+	var id int
+	pathElements := strings.Split(r.URL.Path, "/")
+	if len(pathElements) < 3 {
+		id = 0
+	} else {
+		id, _ = strconv.Atoi(pathElements[2])
+	}
+
+	session, err := h.GetSession(id)
+
+	if err != nil {
+		log.Println(err)
+		_ = wsConn.WriteMessage(websocket.TextMessage, []byte(err.Error()))
+		_ = wsConn.Close()
+		return
+	}
+
+	if session != nil {
+		chatConn := session.Hub.NewConn(wsConn)
+
+		go chatConn.ReadRoutine()
+		go chatConn.WriteRoutine()
+	}
+}
+
+func createNewSession(w http.ResponseWriter, r *http.Request, h *spine.SessionHub) {
+	session := h.NewSession(r.Header.Get("Session-Name"))
+
+	_, _ = w.Write([]byte(fmt.Sprint(session.ID)))
 }
