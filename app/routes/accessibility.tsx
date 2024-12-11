@@ -7,6 +7,7 @@ import 'app/styles/accessibility.css';
 
 export default function Accessibility() {
   return (
+  <div className="background">
     <div className="accessibility">
       <div className="div">
         <img className="group" alt="Group" src="app/assets/accessibilityicons/group.png" />
@@ -103,7 +104,11 @@ export default function Accessibility() {
 
         <div className="text-wrapper-11">Accessibility</div>
       </div>
-      <Footer />
+      
+      <div className="fixed bottom-0 left-0 w-full py-4 text-center">
+        <Footer />
+      </div>
+    </div>
     </div>
   );
 };

@@ -1,6 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
 
+.background {
+
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  margin: 0;
+
+}
+
+
    .accessibility {
     /* background-color: rgba(255, 255, 255, 1.0); */
     /* display: flex; */
@@ -23,6 +33,11 @@
     height: auto;
     min-height: 90vh;
     /* margin-bottom: 1%; */
+    
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0;
 
   }
   
