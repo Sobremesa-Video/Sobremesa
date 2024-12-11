@@ -53,7 +53,9 @@ export default function ContactPage() {
           <button type="submit" className="submit-button">Submit</button>
         </form>
       </div>
+      <div className="fixed bottom-0 left-0 w-full bg-gray-800 text-white py-4 text-center">
       <Footer />
+      </div>
     </div>
   );
 }
