@@ -195,6 +195,15 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Password validation (at least len 8)
+	if len(req.Pass) < 8 {
+		json.NewEncoder(w).Encode(SignupResponse{
+			Success: false,
+			Message: "Password must be at least 8 characters long",
+		})
+		return
+	}
+
 	// Hash the password
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Pass), bcrypt.DefaultCost)
 	if err != nil {
