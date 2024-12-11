@@ -1,0 +1,20 @@
+/*forgetPW.css Page*/
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*Background image that is consistent with rest of web app*/
+.background {
+
+    font-family: Arial, sans-serif;
+    background-image: url("../assets/backgrounds/homedark.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    margin: 0; /* Ensure no default margin */
+    min-height: 100vh; /* Ensure it fills the screen */
+    
+}
+
