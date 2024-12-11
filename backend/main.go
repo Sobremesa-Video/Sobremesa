@@ -11,6 +11,7 @@ import (
 	"watchparty/spine"
 
 	"github.com/gorilla/websocket"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var upgrader = websocket.Upgrader{
@@ -139,8 +140,8 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 	client := database.GetSQLiteClient()
 
 	// Query user from database
-	var storedPass string
-	err := client.QueryRow("SELECT pass FROM users WHERE username = ?", req.Username).Scan(&storedPass)
+	var hashedPass string
+	err := client.QueryRow("SELECT pass FROM users WHERE username = ?", req.Username).Scan(&hashedPass)
 	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(w).Encode(LoginResponse{
@@ -150,8 +151,9 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Check password
-	if storedPass != req.Pass {
+	// Compare hashed password with input
+	err = bcrypt.CompareHashAndPassword([]byte(hashedPass), []byte(req.Pass))
+	if err != nil {
 		w.WriteHeader(http.StatusUnauthorized)
 		json.NewEncoder(w).Encode(LoginResponse{
 			Success: false,
@@ -193,6 +195,16 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Hash the password
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Pass), bcrypt.DefaultCost)
+	if err != nil {
+		json.NewEncoder(w).Encode(SignupResponse{
+			Success: false,
+			Message: "Error processing password",
+		})
+		return
+	}
+
 	// Get database client
 	client := database.GetSQLiteClient()
 
@@ -202,7 +214,7 @@ func handleSignup(w http.ResponseWriter, r *http.Request) {
         VALUES (?, ?, ?, ?);
     `
 
-	err := client.Execute(insertStmt, req.Username, req.FullName, req.Email, req.Pass)
+	err = client.Execute(insertStmt, req.Username, req.FullName, req.Email, string(hashedPassword))
 	if err != nil {
 		// Check for unique constraint violation
 		if err.Error() == "UNIQUE constraint failed: users.username" {
