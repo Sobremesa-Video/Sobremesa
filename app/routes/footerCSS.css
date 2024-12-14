@@ -1,11 +1,14 @@
 .footer-bottom {
   background: url("../assets/textures/darkglass.svg");
-  padding: 5px;
+  padding: 10px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
   /* border-top: 1px solid #ddd; */
   display: flex;
   justify-content: center;
   /* margin-top: 60px; */
-  width: 102%;
+  width: 100%;
 }
 
 .footer-container {
